@@ -1,1 +1,158 @@
 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071a33">
+<meta name="description" content="GREAT EXPERTIZ : solutions de transport et logistique B2B en Côte d'Ivoire.">
+<title>GREAT EXPERTIZ | Transport & Logistique B2B</title>
+<style>
+:root{--navy:#071a33;--blue:#123b68;--lime:#c7f36b;--white:#fff;--muted:#aab8c9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:#fff}
+a{text-decoration:none;color:inherit}
+header{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.brand{font-size:20px;font-weight:900;letter-spacing:1px}
+.brand span{color:#679b19}
+.brand small{display:block;font-size:9px;letter-spacing:3px;margin-top:5px}
+nav{display:flex;align-items:center;gap:25px;font-size:13px;font-weight:700}
+nav a:hover{color:#679b19}
+.menu{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 20px;font-size:13px;font-weight:800;border-radius:4px;transition:.2s}
+.btn-lime{background:var(--lime);color:var(--navy)}
+.btn-lime:hover{background:#b5e654;transform:translateY(-2px)}
+.btn-outline{border:1px solid #ffffff88;color:#fff}
+.hero{position:relative;min-height:570px;display:flex;align-items:center;color:#fff;background:linear-gradient(90deg,rgba(5,20,39,.96),rgba(5,20,39,.75) 48%,rgba(5,20,39,.18)),url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{width:min(720px,88%);margin:0 6%;padding:75px 0}
+.eyebrow{font-size:11px;letter-spacing:3px;font-weight:800;color:var(--lime)}
+h1{font-size:clamp(39px,6vw,69px);line-height:1.04;letter-spacing:-2px;margin:22px 0}
+h1 span{color:var(--lime)}
+.hero p{max-width:540px;font-size:17px;line-height:1.8;color:#e0e8f1}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{font-size:11px!important;letter-spacing:1px;margin-top:34px;color:#c4d0df!important}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--navy);color:white;padding:28px 6%;gap:20px}
+.stat strong{display:block;font-size:18px;color:var(--lime);margin-bottom:7px}
+.stat span{font-size:12px;color:#d3dce8}
+section{padding:75px 6%}
+.section-tag{font-size:11px;letter-spacing:2px;color:#648f24;font-weight:900}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.15;margin:14px 0}
+.intro{max-width:650px;color:#647286;line-height:1.8;font-size:15px}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:35px}
+.service{border:1px solid #e0e6ed;padding:26px;border-radius:5px;background:#fff}
+.service .number{font-size:12px;font-weight:900;color:#6a9729}
+.service h3{font-size:19px;margin:20px 0 10px}
+.service p{font-size:13px;color:#647286;line-height:1.8}
+.fleet{background:#f3f6f8}
+.fleet-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center;margin-top:25px}
+.fleet-grid img{width:100%;height:280px;object-fit:cover;border-radius:5px}
+.fleet-list{padding:0;list-style:none}
+.fleet-list li{padding:14px 0;border-bottom:1px solid #dce3e9;font-size:14px;font-weight:700}
+.fleet-list li:before{content:"✓";color:#679b19;font-weight:900;margin-right:12px}
+.cta{background:var(--navy);color:#fff;text-align:center;padding:65px 6%}
+.cta p{color:var(--muted);line-height:1.8}
+.cta .actions{justify-content:center}
+footer{background:#041124;color:#d5dfeb;padding:30px 6%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px}
+footer span{color:var(--lime)}
+@media(max-width:700px){
+ header{height:68px;padding:0 5%}
+ .brand{font-size:17px}
+ nav{display:none}
+ .menu{display:block;border:1px solid #dce3e9;background:white;padding:10px;border-radius:4px}
+ nav.open{display:flex;position:absolute;z-index:5;top:68px;left:0;right:0;background:white;padding:22px;flex-direction:column;align-items:flex-start;box-shadow:0 8px 20px #0001}
+ .hero{min-height:570px;background-position:58% center}
+ .hero-content{margin:0 5%;width:90%;padding:65px 0}
+ h1{letter-spacing:-1px}
+ .hero p{font-size:15px}
+ .stats{padding:24px 5%;gap:12px}
+ .stat strong{font-size:15px}
+ .stat span{font-size:10px}
+ section{padding:55px 5%}
+ .services,.fleet-grid{grid-template-columns:1fr}
+ .fleet-grid img{height:220px}
+ .btn{padding:14px 15px}
+}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="index.html">GREAT <span>EXPERTIZ</span><small>TRANSPORT · LOGISTIQUE · B2B</small></a>
+<button class="menu" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Ouvrir le menu">☰</button>
+<nav>
+<a href="#services">Nos services</a>
+<a href="#solutions">Nos solutions</a>
+<a href="#contact">Contact</a>
+<a class="btn btn-lime" href="commande.html">Passer une commande</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div class="hero-content">
+<div class="eyebrow">VOTRE PARTENAIRE LOGISTIQUE EN CÔTE D’IVOIRE</div>
+<h1>Le transport qui fait avancer <span>votre activité.</span></h1>
+<p>Des solutions de transport et de logistique pensées pour les entreprises, les commerçants et les professionnels. Une approche fiable, réactive et adaptée à vos marchandises.</p>
+<div class="actions">
+<a class="btn btn-lime" href="commande.html">Faire une demande de commande ↗</a>
+<a class="btn btn-outline" href="candidature.html">Déposer une candidature</a>
+</div>
+<p class="hero-note">ABIDJAN · TOUTE LA CÔTE D’IVOIRE · SOLUTIONS B2B</p>
+</div>
+</section>
+
+<div class="stats">
+<div class="stat"><strong>TRANSPORT</strong><span>Marchandises et livraisons</span></div>
+<div class="stat"><strong>LOGISTIQUE</strong><span>Organisation de vos opérations</span></div>
+<div class="stat"><strong>B2B</strong><span>Au service des professionnels</span></div>
+</div>
+
+<section id="services">
+<div class="section-tag">NOS MÉTIERS</div>
+<h2>Des solutions adaptées<br>à vos besoins.</h2>
+<p class="intro">Nous vous accompagnons dans vos opérations de transport, du besoin ponctuel aux mouvements réguliers de marchandises.</p>
+<div class="services">
+<article class="service"><div class="number">01 / TRANSPORT</div><h3>Transport de marchandises</h3><p>Des solutions de livraison adaptées aux volumes, aux contraintes et aux délais de votre activité.</p></article>
+<article class="service"><div class="number">02 / ENTREPRISES</div><h3>Logistique B2B</h3><p>Approvisionnement, transferts inter-agences et coordination de vos opérations professionnelles.</p></article>
+<article class="service"><div class="number">03 / SUR MESURE</div><h3>Prestations spécifiques</h3><p>Déménagement, équipements événementiels, marchandises volumineuses et besoins ponctuels.</p></article>
+</div>
+</section>
+
+<section class="fleet" id="solutions">
+<div class="section-tag">UNE APPROCHE FLEXIBLE</div>
+<div class="fleet-grid">
+<div>
+<h2>Le bon moyen de transport pour chaque mission.</h2>
+<p class="intro">Chaque marchandise est différente. La solution se choisit selon le volume, le poids, le trajet et les conditions de livraison.</p>
+<ul class="fleet-list">
+<li>Petits colis et livraisons professionnelles</li>
+<li>Fourgonnettes et camionnettes</li>
+<li>Transport de volumes importants</li>
+<li>Recherche de solutions adaptées à votre demande</li>
+</ul>
+</div>
+<img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=85" alt="Activité de transport et logistique en entrepôt" loading="lazy">
+</div>
+</section>
+
+<section class="cta" id="contact">
+<div class="eyebrow">GREAT EXPERTIZ · VOTRE PARTENAIRE</div>
+<h2>Parlons de votre prochaine livraison.</h2>
+<p>Présentez-nous votre besoin pour préparer une solution adaptée à votre activité.</p>
+<div class="actions">
+<a class="btn btn-lime" href="commande.html">Faire une demande de commande</a>
+<a class="btn btn-outline" href="candidature.html">Rejoindre notre réseau</a>
+</div>
+</section>
+</main>
+
+<footer>
+<div><strong>GREAT <span>EXPERTIZ</span></strong><br>TRANSPORT · LOGISTIQUE · B2B</div>
+<div>Abidjan, Côte d’Ivoire<br>© <span id="year"></span> GREAT EXPERTIZ</div>
+</footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+  </html>
+  
