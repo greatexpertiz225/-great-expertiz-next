@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b46">
+  <title>Candidature | GREAT EXPERTIZ</title>
+  <style>
+    :root {
+      --navy: #102b46;
+      --blue: #1769aa;
+      --gold: #f4b63f;
+      --light: #f3f6fa;
+      --text: #203044;
+      --border: #dce3eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--light);
+    }
+    header {
+      padding: 18px 20px;
+      background: var(--navy);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand { font-weight: 800; letter-spacing: 1px; }
+    .brand span { color: var(--gold); }
+    header a { color: white; text-decoration: none; font-size: 14px; }
+    .hero {
+      background: linear-gradient(120deg, #102b46, #1b5781);
+      color: white;
+      padding: 35px 20px;
+    }
+    .hero h1 { margin: 0 0 12px; font-size: 30px; }
+    .hero p { line-height: 1.6; margin: 0; color: #e1edf7; }
+    main { max-width: 760px; margin: 25px auto; padding: 0 14px 35px; }
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: 0 5px 20px #102b460c;
+    }
+    h2 { color: var(--navy); font-size: 20px; margin-top: 0; }
+    label { display: block; font-size: 13px; font-weight: 700; margin: 15px 0 7px; }
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+      background: white;
+    }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    button {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--gold);
+      color: #172b3d;
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .note {
+      margin-top: 18px;
+      padding: 13px;
+      border-radius: 8px;
+      background: #fff8e8;
+      border: 1px solid #f0d99d;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    #result { display: none; margin-top: 16px; padding: 14px; background: #edf7ef; border-radius: 8px; line-height: 1.5; }
+    footer { text-align: center; padding: 24px 14px; background: var(--navy); color: white; font-size: 13px; }
+    @media(max-width: 600px) {
+      .two { grid-template-columns: 1fr; }
+      .panel { padding: 16px; }
+      .hero h1 { font-size: 25px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">GREAT <span>EXPERTIZ</span></div>
+  <a href="index.html">← Accueil</a>
+</header>
+
+<section class="hero">
+  <h1>Rejoignez GREAT EXPERTIZ</h1>
+  <p>Vous êtes chauffeur, transporteur ou partenaire logistique ?<br>
+  Présentez votre profil pour de futures opportunités professionnelles.</p>
+</section>
+
+<main>
+  <form id="applicationForm" class="panel">
+    <h2>Formulaire de candidature</h2>
+
+    <label for="role">Profil recherché *</label>
+    <select id="role" required>
+      <option value="">Sélectionner votre profil</option>
+      <option>Chauffeur professionnel</option>
+      <option>Transporteur indépendant</option>
+      <option>Propriétaire de véhicule</option>
+      <option>Partenaire logistique</option>
+      <option>Autre profil professionnel</option>
+    </select>
+
+    <div class="two">
+      <div>
+        <label for="name">Nom et prénom *</label>
+        <input id="name" required autocomplete="name" placeholder="Votre nom complet">
+      </div>
+      <div>
+        <label for="phone">Téléphone WhatsApp *</label>
+        <input id="phone" required type="tel" autocomplete="tel" placeholder="Votre numéro">
+      </div>
+    </div>
+
+    <label for="city">Ville de résidence *</label>
+    <input id="city" required placeholder="Ex. : Abidjan, Bouaké…">
+
+    <label for="vehicle">Véhicule disponible, le cas échéant</label>
+    <select id="vehicle">
+      <option value="">Sélectionner</option>
+      <option>Petit utilitaire</option>
+      <option>Fourgonnette / fourgon</option>
+      <option>Camionnette</option>
+      <option>Camion</option>
+      <option>Camion frigorifique</option>
+      <option>Poids lourd / semi-remorque</option>
+      <option>Aucun véhicule personnel</option>
+    </select>
+
+    <label for="experience">Expérience professionnelle *</label>
+    <select id="experience" required>
+      <option value="">Sélectionner</option>
+      <option>Débutant</option>
+      <option>Moins de 2 ans</option>
+      <option>2 à 5 ans</option>
+      <option>Plus de 5 ans</option>
+    </select>
+
+    <label for="message">Présentation / informations complémentaires</label>
+    <textarea id="message" rows="4" placeholder="Décrivez brièvement votre expérience, vos disponibilités ou vos services."></textarea>
+
+    <div class="note">
+      <strong>Information :</strong> ce formulaire constitue une manifestation d’intérêt. Il ne garantit ni recrutement ni attribution de mission. L’envoi réel et le stockage sécurisé de la candidature nécessitent une connexion au serveur GREAT EXPERTIZ.
+    </div>
+
+    <button type="submit">Vérifier ma candidature</button>
+    <div id="result" role="status"></div>
+  </form>
+</main>
+
+<footer>
+  <strong>GREAT EXPERTIZ</strong><br>
+  Transport • Logistique • B2B — Côte d’Ivoire
+</footer>
+
+<script>
+  document.getElementById('applicationForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const result = document.getElementById('result');
+    result.style.display = 'block';
+    result.textContent =
+      'Vérification du formulaire réussie. Votre candidature n’a pas encore été envoyée ni enregistrée. Le serveur GREAT EXPERTIZ devra être connecté pour assurer sa transmission.';
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+</script>
+</body>
+</html>
