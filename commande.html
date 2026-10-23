@@ -3,694 +3,416 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#78833b">
-<title>Passer une commande | GREAT EXPERTIZ</title>
-<meta name="description" content="Transport et logistique B2B en Côte d'Ivoire.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Commande | GREAT EXPERTIZ</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root {
-  --olive:#78833b;
-  --dark:#59642b;
-  --blue:#79b9df;
-  --blue-dark:#287da9;
-  --ink:#26333b;
-  --muted:#687780;
-  --pale:#f4f8fa;
-  --line:#e2e9ed;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--ink);
-  background:#fff;
-  line-height:1.5;
-}
-a { color:inherit;text-decoration:none; }
-header {
-  padding:15px 4%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  border-bottom:1px solid var(--line);
-  background:#fff;
-}
-.brand {
-  font-weight:900;
-  letter-spacing:1.3px;
-  line-height:1.05;
-  font-size:21px;
-}
-.brand .great { color:var(--olive); }
-.brand .expertiz { color:var(--blue-dark); }
-.brand small {
-  display:block;
-  margin-top:6px;
-  font-size:9px;
-  letter-spacing:1.5px;
-  color:var(--muted);
-}
-header>a:last-child {
-  font-weight:700;
-  color:var(--dark);
-}
-.hero {
-  padding:28px 4%;
-  background:linear-gradient(110deg,#f0f4e5,#eaf5fb);
-}
-.hero>div { max-width:1160px;margin:auto; }
-.hero h1 {
-  margin:0 0 7px;
-  font-size:clamp(25px,4vw,36px);
-}
-.hero p { margin:0;color:#52616a; }
-main {
-  max-width:1160px;
-  margin:24px auto;
-  padding:0 14px 36px;
-}
-.layout {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-  align-items:start;
-}
-.panel {
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:20px;
-  background:white;
-  box-shadow:0 12px 30px #26333b0d;
-}
-h2 {
-  font-size:19px;
-  margin:0 0 12px;
-  color:var(--dark);
-}
-h3 { font-size:15px;margin:23px 0 8px; }
-label {
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin:13px 0 6px;
-}
-input,select,textarea {
-  width:100%;
-  padding:11px 12px;
-  border:1px solid #cbd5d9;
-  border-radius:9px;
-  background:white;
-  font:inherit;
-  color:var(--ink);
-}
-input:focus,select:focus,textarea:focus {
-  outline:2px solid #b9d9ec;
-  border-color:var(--blue-dark);
-}
-.two {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.btn {
-  border:0;
-  border-radius:9px;
-  padding:12px 14px;
-  font-size:14px;
-  font-weight:800;
-  cursor:pointer;
-}
-.primary {
-  background:var(--olive);
-  color:white;
-  width:100%;
-  margin-top:17px;
-}
-.primary:hover { background:var(--dark); }
-.primary:disabled { opacity:.6;cursor:wait; }
-.gps {
-  background:#eaf5fb;
-  color:var(--blue-dark);
-  width:100%;
-  margin-top:8px;
-}
-.hint {
-  font-size:12px;
-  color:var(--muted);
-  margin:7px 0;
-  line-height:1.5;
-}
-.locbox {
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  margin-top:10px;
-  background:#fbfdfd;
-}
-#map {
-  height:300px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  overflow:hidden;
-}
-.price {
-  padding:16px;
-  border-radius:12px;
-  background:#f0f4e5;
-  margin-top:15px;
-}
-.price strong {
-  font-size:25px;
-  color:var(--dark);
-}
-.goods-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.goods-item {
-  display:flex;
-  gap:8px;
-  align-items:center;
-  border:1px solid var(--line);
-  border-radius:9px;
-  padding:9px;
-  font-size:12px;
-  margin:0;
-}
-.goods-item input[type=checkbox] { width:auto; }
-.goods-item span { flex:1; }
-.goods-item small {
-  display:block;
-  color:var(--muted);
-}
-.goods-item input[type=number] {
-  width:55px;
-  padding:5px;
-}
-.range-line {
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  font-size:13px;
-  font-weight:700;
-}
-.range-line label { margin-bottom:8px; }
-.range-line output { color:var(--dark); }
-input[type=range] {
-  padding:0;
-  accent-color:var(--olive);
-}
-.notice {
-  padding:12px;
-  background:#f4f8fa;
-  border-radius:10px;
-  font-size:12px;
-  color:#52616a;
-  margin-top:13px;
-}
-#result {
-  display:none;
-  margin-top:15px;
-  padding:13px;
-  border-radius:10px;
-  line-height:1.5;
-  overflow-wrap:anywhere;
-  font-size:14px;
-}
-#result.good {
-  display:block;
-  background:#eef7ee;
-  border:1px solid #cce5cb;
-}
-#result.bad {
-  display:block;
-  background:#fff4e8;
-  border:1px solid #f1d1a9;
-}
-footer {
-  text-align:center;
-  background:#f7f9fa;
-  border-top:1px solid var(--line);
-  padding:24px 12px;
-  font-size:13px;
-  color:var(--muted);
-}
-@media(max-width:760px) {
-  .layout { grid-template-columns:1fr; }
-  .panel { padding:15px; }
-  .hero { padding:25px 5%; }
-  .two { gap:9px; }
-  #map { height:260px; }
-}
-@media(max-width:390px) {
-  .goods-grid { grid-template-columns:1fr; }
-  .brand { font-size:17px; }
-}
+:root{--green:#78833b;--blue:#287da9;--ink:#26333b;--line:#dce4e7;--bg:#f5f7f7}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:white;padding:18px 5%;border-bottom:1px solid var(--line)}
+.brand{font-weight:900;font-size:21px;color:var(--green)}
+.brand span{color:var(--blue)}
+header small{display:block;font-size:10px;letter-spacing:2px;margin-top:4px}
+.hero{background:#eaf0df;padding:25px 5%}
+.hero h1{margin:0 0 7px;font-size:28px}
+main{max-width:1100px;margin:22px auto;padding:0 12px 35px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+h2{font-size:19px;color:var(--green);margin:0 0 12px}
+h3{font-size:15px;margin:20px 0 8px}
+label{display:block;font-size:13px;font-weight:bold;margin:12px 0 5px}
+input,select,textarea{display:block;width:100%;min-width:0;padding:11px;border:1px solid #cbd5da;border-radius:8px;background:white;font:inherit;color:var(--ink)}
+button{cursor:pointer;border:0;border-radius:8px;padding:11px;font-weight:bold}
+.primary{width:100%;margin-top:15px;background:var(--green);color:white}
+.secondary{width:100%;margin-top:8px;background:#eaf5fb;color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#map{height:300px;border-radius:10px;border:1px solid var(--line);margin-top:10px}
+.small{font-size:12px;color:#63717a;line-height:1.5}
+.status{font-size:12px;margin-top:7px;color:#53646c;overflow-wrap:anywhere}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{background:#edf3df;border:1px solid #d9e4bd;border-radius:20px;padding:6px 9px;font-size:12px}
+.tag button{padding:0 0 0 6px;background:none;color:#933;font-size:14px}
+#items{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.itembtn{background:#f0f5f7;color:#294b5a;border:1px solid #d9e5e9}
+.itembtn:active{background:#dbeaf0}
+.summary{background:#f0f4e5;padding:14px;border-radius:10px;margin-top:14px}
+.summary p{margin:6px 0;font-size:14px;display:flex;justify-content:space-between;gap:12px}
+.total{border-top:1px solid #d0d9b6;padding-top:10px!important;font-size:19px!important;font-weight:bold;color:#53642a}
+#result{display:none;margin-top:12px;padding:12px;border-radius:8px;overflow-wrap:anywhere}
+footer{text-align:center;padding:22px;font-size:12px;color:#687780}
+@media(max-width:740px){.grid{grid-template-columns:1fr}.panel{padding:14px}.hero h1{font-size:24px}#map{height:270px}}
 </style>
 </head>
 <body>
-
 <header>
-  <a class="brand" href="./index.html">
-    <span><span class="great">GREAT</span>
-    <span class="expertiz">EXPERTIZ</span></span>
-    <small>TRANSPORT · LOGISTIQUE · B2B</small>
-  </a>
-  <a href="./index.html">← Accueil</a>
+<div class="brand">GREAT <span>EXPERTIZ</span></div>
+<small>TRANSPORT · LOGISTIQUE · B2B</small>
 </header>
 
 <section class="hero">
-  <div>
-    <h1>Organisons votre transport.</h1>
-    <p>Vos marchandises, partout en Côte d’Ivoire. Complétez votre demande et vérifiez l’estimation avant envoi.</p>
-  </div>
+<h1>Organisons votre transport</h1>
+<p>Choisissez votre prestation, vos articles et votre itinéraire.</p>
 </section>
 
 <main>
-<form id="orderForm">
-<div class="layout">
-
+<form id="form">
+<div class="grid">
 <section class="panel">
-  <h2>1. Marchandise et prestation</h2>
+<h2>1. Votre prestation</h2>
+<label for="service">Type de prestation *</label>
+<select id="service" required>
+<option value="">Sélectionner</option>
+<option value="demenagement">Déménagement</option>
+<option value="marchandises">Transport de marchandises</option>
+<option value="livraison">Livraison professionnelle</option>
+<option value="evenementiel">Transport événementiel / PLV</option>
+<option value="interagence">Transfert inter-agences</option>
+</select>
 
-  <label for="service">Type de prestation *</label>
-  <select id="service" required>
-    <option value="">Choisir</option>
-    <option>Transport de marchandises</option>
-    <option>Déménagement</option>
-    <option>Livraison professionnelle</option>
-    <option>Transport événementiel / PLV</option>
-    <option>Transfert inter-agences</option>
-  </select>
+<label for="vehicle">Type de véhicule *</label>
+<select id="vehicle" required>
+<option value="">Sélectionner</option>
+<option>Petit utilitaire</option>
+<option>Fourgonnette</option>
+<option>Camionnette</option>
+<option>Fourgon grand volume</option>
+<option>Camion</option>
+<option>Camion frigorifique</option>
+<option>Poids lourd</option>
+</select>
 
-  <label for="vehicle">Véhicule souhaité *</label>
-  <select id="vehicle" required>
-    <option value="">Choisir un véhicule</option>
-    <option>Petit utilitaire</option>
-    <option>Fourgonnette</option>
-    <option>Camionnette</option>
-    <option>Fourgon grand volume</option>
-    <option>Camion</option>
-    <option>Camion frigorifique</option>
-    <option>Poids lourd</option>
-  </select>
+<h3>Catalogue des objets</h3>
+<p class="small">Touchez un article pour l’ajouter. Les sélections apparaissent côte à côte ci-dessous.</p>
+<div id="items"></div>
+<div id="chosen" class="tags"></div>
 
-  <h3>Catalogue indicatif des objets</h3>
-  <p class="hint">Cochez les objets pour estimer le volume. Les volumes sont approximatifs. Ajustez ensuite le total avec le curseur.</p>
-  <div class="goods-grid" id="goodsGrid"></div>
-
-  <label for="goods">Autres marchandises / détails *</label>
-  <textarea id="goods" rows="2" required placeholder="Décrivez les objets, palettes ou colis"></textarea>
-
-  <div class="range-line">
-    <label for="quantity" id="quantityLabel">Volume total estimé</label>
-    <output id="qtyOut">2 CBM</output>
-  </div>
-  <input id="quantity" type="range" min="0.5" max="30" step="0.5" value="2">
-  <p class="hint">CBM = mètre cube. Pour les poids lourds, la quantité est exprimée en tonnes.</p>
-
-  <div class="two">
-    <div>
-      <label for="floors">Étage au chargement</label>
-      <select id="floors">
-        <option value="0">Rez-de-chaussée</option>
-        <option value="1">1er étage</option>
-        <option value="2">2e étage</option>
-        <option value="3">3e étage</option>
-        <option value="4">4e étage</option>
-        <option value="5">5e étage ou plus</option>
-      </select>
-    </div>
-    <div>
-      <label for="handlers">Manutentionnaires (facultatif)</label>
-      <select id="handlers">
-        <option value="0">Aucun — 0</option>
-        <option value="1">1 personne</option>
-        <option value="2">2 personnes</option>
-        <option value="3">3 personnes</option>
-        <option value="4">4 personnes</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="two">
-    <div>
-      <label for="date">Date souhaitée *</label>
-      <input id="date" type="date" required>
-    </div>
-    <div>
-      <label for="notes">Instructions</label>
-      <input id="notes" placeholder="Accès, contraintes…">
-    </div>
-  </div>
-
-  <div class="price">
-    <div>Estimation indicative</div>
-    <strong id="priceOut">20 000 FCFA</strong>
-    <p class="hint" id="priceNote">Prix à confirmer après vérification.</p>
-  </div>
-
-  <h3>2. Lieux de départ et d’arrivée</h3>
-
-  <div class="locbox">
-    <strong>Départ *</strong>
-    <label for="fromCommune">Commune / ville</label>
-    <input id="fromCommune" list="towns" required autocomplete="off" placeholder="Tapez une commune ou une ville">
-    <label for="fromAddress">Quartier, rue, numéro (facultatif)</label>
-    <input id="fromAddress" placeholder="Adresse de chargement">
-    <button type="button" class="btn gps" id="gpsFrom">◎ GPS — renseigner le départ</button>
-    <p class="hint" id="gpsFromStatus">Le GPS est facultatif. Autorisez la localisation si vous l’utilisez.</p>
-  </div>
-
-  <div class="locbox">
-    <strong>Arrivée *</strong>
-    <label for="toCommune">Commune / ville</label>
-    <input id="toCommune" list="towns" required autocomplete="off" placeholder="Tapez une commune ou une ville">
-    <label for="toAddress">Quartier, rue, numéro (facultatif)</label>
-    <input id="toAddress" placeholder="Adresse de livraison">
-    <button type="button" class="btn gps" id="gpsTo">◎ GPS — renseigner l’arrivée</button>
-    <p class="hint" id="gpsToStatus">Vous pouvez utiliser le GPS pour un seul lieu ou pour les deux.</p>
-  </div>
-
-  <datalist id="towns"></datalist>
-</section>
-
-<section class="panel">
-  <h2>Carte du trajet</h2>
-  <div id="map" aria-label="Carte interactive de Côte d'Ivoire"></div>
-  <p class="hint">La carte aide à situer les lieux. Les distances et durées routières ne sont pas encore calculées.</p>
-
-  <h2 style="margin-top:25px">3. Vos coordonnées</h2>
-
-  <label for="customer">Nom / entreprise *</label>
-  <input id="customer" required autocomplete="name" placeholder="Votre nom ou société">
-
-  <div class="two">
-    <div>
-      <label for="phone">Téléphone *</label>
-      <input id="phone" type="tel" required autocomplete="tel" placeholder="07… / 05… / 01…">
-    </div>
-    <div>
-      <label for="email">E-mail (facultatif)</label>
-      <input id="email" type="email" autocomplete="email" placeholder="nom@entreprise.ci">
-    </div>
-  </div>
-
-  <div class="notice">
-    <strong>Important :</strong> cette estimation n’est pas un devis définitif. Aucun paiement n’est demandé ici. Une commande ne sera confirmée que si le serveur répond avec un code d’enregistrement.
-  </div>
-
-  <button class="btn primary" type="submit" id="submitBtn">Vérifier et envoyer ma demande</button>
-  <div id="result" role="status" aria-live="polite"></div>
-</section>
-
+<div class="two">
+<div>
+<label id="amountLabel" for="amount">Volume total (CBM)</label>
+<input id="amount" type="number" min="0.1" step="0.1" value="2" required>
 </div>
+<div>
+<label for="date">Date souhaitée *</label>
+<input id="date" type="date" required>
+</div>
+</div>
+<p id="conversion" class="small"></p>
+
+<label for="otherGoods">Autres précisions sur la marchandise</label>
+<textarea id="otherGoods" rows="2" placeholder="Description, fragilité, poids réel…"></textarea>
+
+<h3>Options de manutention</h3>
+<label for="floor">Étage au chargement</label>
+<select id="floor">
+<option value="0">Rez-de-chaussée</option>
+<option value="1">1er étage — sans supplément</option>
+<option value="2">2e étage — supplément 5 000 FCFA</option>
+<option value="3">3e étage — supplément 5 000 FCFA</option>
+<option value="4">4e étage — supplément 5 000 FCFA</option>
+<option value="5">5e étage ou plus — supplément 5 000 FCFA</option>
+</select>
+<p class="small">Règle appliquée ici : un supplément unique de 5 000 FCFA à partir du 2e étage.</p>
+
+<label for="workers">Nombre de manutentionnaires</label>
+<input id="workers" type="number" min="0" max="20" step="1" value="0">
+<p class="small">5 000 FCFA par manutentionnaire sélectionné.</p>
+</section>
+
+<section class="panel">
+<h2>2. Départ et arrivée</h2>
+<p class="small">Autorisez la localisation pour proposer automatiquement votre position de départ. Vous pouvez aussi saisir une ville ou une commune manuellement.</p>
+
+<label for="fromCity">Commune ou ville de départ *</label>
+<input id="fromCity" list="places" placeholder="Ex. Cocody, Abobo, Azopé" required>
+<label for="fromAddress">Quartier, rue ou précision</label>
+<input id="fromAddress" placeholder="Adresse de départ">
+<button class="secondary" type="button" id="gpsFrom">◎ Utiliser ma position comme départ</button>
+<div id="gpsFromStatus" class="status"></div>
+
+<label for="toCity">Commune ou ville d’arrivée *</label>
+<input id="toCity" list="places" placeholder="Ex. Yopougon, Bouaké, Azopé" required>
+<label for="toAddress">Quartier, rue ou précision</label>
+<input id="toAddress" placeholder="Adresse d’arrivée">
+<button class="secondary" type="button" id="gpsTo">◎ Utiliser ma position comme arrivée</button>
+<div id="gpsToStatus" class="status"></div>
+
+<datalist id="places">
+<option value="Abidjan"><option value="Abobo"><option value="Adjamé">
+<option value="Anyama"><option value="Attécoubé"><option value="Bingerville">
+<option value="Cocody"><option value="Koumassi"><option value="Marcory">
+<option value="Plateau"><option value="Port-Bouët"><option value="Treichville">
+<option value="Songon"><option value="Yopougon"><option value="Azopé">
+<option value="Agboville"><option value="Aboisso"><option value="Adzopé">
+<option value="Bouaké"><option value="Daloa"><option value="Divo">
+<option value="Gagnoa"><option value="Grand-Bassam"><option value="Korhogo">
+<option value="Man"><option value="San-Pédro"><option value="Yamoussoukro">
+<option value="Soubré"><option value="Bondoukou"><option value="Odienné">
+<option value="Ferkessédougou"><option value="Abengourou"><option value="Dabou">
+</datalist>
+
+<div id="map"></div>
+<div id="routeStatus" class="status">Chargement de la carte…</div>
+<div class="two">
+<div>
+<label>Distance routière</label>
+<input id="distance" readonly placeholder="En attente de l’itinéraire">
+</div>
+<div>
+<label>Durée estimée</label>
+<input id="duration" readonly placeholder="En attente de l’itinéraire">
+</div>
+</div>
+
+<div class="summary">
+<h3 style="margin-top:0">Détail de votre estimation</h3>
+<p><span>Tarif de base / volume</span><strong id="basePrice">20 000 FCFA</strong></p>
+<p><span>Distance facturée</span><strong id="kmLine">À calculer</strong></p>
+<p><span>Supplément kilométrique</span><strong id="kmPrice">À calculer</strong></p>
+<p><span>Supplément d’étage</span><strong id="floorPrice">0 FCFA</strong></p>
+<p><span>Manutentionnaires</span><strong id="workerPrice">0 FCFA</strong></p>
+<p class="total"><span>Total estimé</span><strong id="totalPrice">20 000 FCFA</strong></p>
+<p id="priceNote" class="small">Le montant est estimatif et sera confirmé avant la prise en charge.</p>
+</div>
+</section>
+</div>
+
+<section class="panel" style="margin-top:16px">
+<h2>3. Vos coordonnées</h2>
+<div class="two">
+<div><label for="customer">Nom complet *</label><input id="customer" required></div>
+<div><label for="phone">Téléphone *</label><input id="phone" type="tel" required></div>
+</div>
+<label for="email">E-mail</label>
+<input id="email" type="email">
+<label for="notes">Instructions complémentaires</label>
+<textarea id="notes" rows="2"></textarea>
+<button id="submit" class="primary" type="submit">Calculer et envoyer la demande</button>
+<div id="result"></div>
+</section>
 </form>
 </main>
-
-<footer>
-  <strong>GREAT EXPERTIZ</strong><br>
-  Transport · Logistique · B2B — Côte d’Ivoire
-</footer>
+<footer>GREAT EXPERTIZ · Transport · Logistique · B2B</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbz5PeGwyPxuY2o2A2RdHGvVp37zoRtS_QmohhRg5jw7QxvHsuRNVqTtX3dqcqtjy48hnA/exec';
+/* Conserver le serveur Apps Script existant */
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbz5PeGwyPxuY2o2A2RdHGvVp37zoRtS_QmohhRg5jw7QxvHsuRNVqTtX3dqcqtjy48hnA/exec";
 
-const towns = [
-'Abobo','Adjamé','Anyama','Attécoubé','Bingerville','Cocody',
-'Koumassi','Marcory','Plateau','Port-Bouët','Treichville',
-'Songon','Yopougon','Grand-Bassam','Dabou','Jacqueville',
-'Bonoua','Alépé','Agboville','Adzopé','Aboisso','Abengourou',
-'Bondoukou','Bongouanou','Bouaké','Yamoussoukro','Daloa',
-'San-Pédro','Soubré','Gagnoa','Oumé','Sinfra','Issia','Man',
-'Duékoué','Guiglo','Danané','Touba','Odienné','Séguéla',
-'Mankono','Korhogo','Ferkessédougou','Boundiali','Tingréla',
-'Bouna','Tanda','Daoukro','Prikro','Dimbokro','Tiassalé',
-'Sikensi','Lakota','Divo','Fresco','Tabou','Sassandra',
-'Grand-Lahou','Toumodi','Béoumi','Katiola',
-'Niakaramandougou','Tafiré','Kong','Ouangolodougou',
-'Minignan','Madinani','Kani','Vavoua','Zouan-Hounien',
-'Bangolo','Biankouma','Toulépleu','Bloléquin','Arrah',
-'M’Bahiakro','M’Batto','Taabo','Zuénoula','Bouaflé',
-'Sakassou','Botro','Dabakala','Kounahiri','Dianra',
-'Guitry','Buyo','Méagui','Oupoyo','Grand-Zattry','Kouibly',
-'Facobly','Sipilou','Koro','Foungbesso','Gbeleban',
-'Doropo','Nassian','Transua','Koun-Fao','Assuefry',
-'Sandégué','Abidjan'
+const $=id=>document.getElementById(id);
+const catalog=[
+["Carton standard",0.08],["Carton volumineux",0.15],["Valise",0.12],
+["Sac",0.08],["Chaise",0.12],["Fauteuil",0.5],["Canapé 2 places",1.2],
+["Canapé 3 places",1.8],["Lit simple",0.8],["Lit double",1.5],
+["Matelas",0.45],["Armoire",1.2],["Commode",0.5],["Table",0.6],
+["Bureau",0.8],["Réfrigérateur",0.7],["Congélateur",0.6],
+["Machine à laver",0.4],["Télévision",0.12],["Micro-ondes",0.08],
+["Climatiseur",0.3],["Bibliothèque",0.8],["Autre objet",0.25]
 ];
-
-document.getElementById('towns').innerHTML =
-  [...new Set(towns)].sort((a,b)=>a.localeCompare(b,'fr'))
-    .map(t=>'<option value="'+t.replace(/"/g,'&quot;')+'">')
-    .join('');
-
-const objects = [
-['Carton petit',0.05],['Carton moyen',0.08],
-['Carton grand',0.12],['Valise',0.12],
-['Chaise',0.08],['Fauteuil',0.5],
-['Canapé 2 places',1.2],['Canapé 3 places',1.6],
-['Table',0.5],['Lit 1 place',0.8],['Lit 2 places',1.3],
-['Matelas',0.4],['Armoire',1.2],['Réfrigérateur',0.6],
-['Congélateur',0.5],['Téléviseur',0.15],
-['Machine à laver',0.4],['Bureau',0.7],
-['Palette',0.8],['Objet volumineux',1.0]
-];
-
-const grid = document.getElementById('goodsGrid');
-
-objects.forEach((o,i)=>{
-  const lab = document.createElement('label');
-  lab.className = 'goods-item';
-  lab.innerHTML =
-    '<input type="checkbox" data-i="'+i+'">' +
-    '<span>'+o[0]+'<small>'+o[1]+' CBM/unité</small></span>' +
-    '<input aria-label="Quantité '+o[0]+'" type="number" min="1" value="1" data-q="'+i+'" disabled>';
-  grid.appendChild(lab);
-});
-
-grid.addEventListener('change',e=>{
-  if(e.target.matches('input[type=checkbox]')){
-    const q=grid.querySelector('[data-q="'+e.target.dataset.i+'"]');
-    q.disabled=!e.target.checked;
-    if(e.target.checked) q.value=1;
-    updateQtyFromGoods();
-  }
-  if(e.target.matches('[data-q]')) updateQtyFromGoods();
-});
-
-function goodsVolume(){
-  let v=0;
-  grid.querySelectorAll('[data-i]:checked').forEach(c=>{
-    v+=objects[+c.dataset.i][1] *
-      (+grid.querySelector('[data-q="'+c.dataset.i+'"]').value||1);
-  });
-  return v;
-}
-
-function updateQtyFromGoods(){
-  const v=Math.max(0.5,Math.ceil(goodsVolume()*2)/2);
-  document.getElementById('quantity').value=Math.min(30,v);
-  updatePrice();
-}
-
-const vehicle=document.getElementById('vehicle');
-const quantity=document.getElementById('quantity');
-
-function heavy(){
-  return ['Camion','Camion frigorifique','Poids lourd'].includes(vehicle.value);
-}
-
-function money(n){
-  return Math.round(n).toLocaleString('fr-FR')+' FCFA';
-}
-
-function calculateBase(q){
-  if(heavy()) return Math.max(30000,20000+Math.max(0,q-2)*10000);
-  return q<=2 ? 20000 : 20000+Math.ceil(q-2)*10000;
-}
-
-function updatePrice(){
-  const q=+quantity.value;
-  document.getElementById('qtyOut').textContent=q+(heavy()?' tonnes':' CBM');
-  document.getElementById('quantityLabel').textContent=
-    heavy()?'Poids estimé':'Volume total estimé';
-
-  const base=calculateBase(q);
-  const floors=+document.getElementById('floors').value;
-  const handlers=+document.getElementById('handlers').value;
-  const floorCost=Math.max(0,floors-1)*5000;
-  const handlerCost=handlers*5000;
-  const price=base+floorCost+handlerCost;
-
-  document.getElementById('priceOut').textContent=
-    q>10&&!heavy()?'À confirmer (plus de 10 CBM)':money(price);
-
-  document.getElementById('priceNote').textContent=
-    'Base estimée : '+money(base)+
-    ' · Étages : '+money(floorCost)+
-    ' · Manutention : '+money(handlerCost)+
-    (q>10&&!heavy()
-      ?' · Plus de 10 CBM : véhicule supplémentaire ou sous-traitance à confirmer.'
-      :'');
-}
-
-vehicle.addEventListener('change',updatePrice);
-quantity.addEventListener('input',updatePrice);
-['floors','handlers'].forEach(id=>
-  document.getElementById(id).addEventListener('change',updatePrice)
-);
-updatePrice();
-
+let selected=[];
+let coords={from:null,to:null};
+let markers={from:null,to:null};
+let routeLine=null;
+let routeDistanceKm=null;
 let map=null;
-const markers={from:null,to:null};
-let line=null;
 
-if(window.L){
-  map=L.map('map').setView([5.35,-4.02],8);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    maxZoom:19,
-    attribution:'© OpenStreetMap'
-  }).addTo(map);
-}
-
-function addPoint(which,lat,lng,label){
-  if(!map) return;
-  if(markers[which]) map.removeLayer(markers[which]);
-  markers[which]=L.marker([lat,lng]).addTo(map).bindPopup(label);
-
-  if(markers.from&&markers.to){
-    if(line) map.removeLayer(line);
-    line=L.polyline([
-      markers.from.getLatLng(),
-      markers.to.getLatLng()
-    ],{color:'#78833b'}).addTo(map);
-    map.fitBounds(line.getBounds().pad(0.2));
-  }else{
-    map.setView([lat,lng],14);
-  }
-}
-
-async function reverseGeocode(lat,lng){
-  try{
-    const r=await fetch(
-      'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+
-      lat+'&lon='+lng+'&zoom=16'
-    );
-    if(!r.ok) throw Error();
-    return await r.json();
-  }catch(e){
-    return null;
-  }
-}
-
-function setupGPS(which){
-  const button=document.getElementById(which==='from'?'gpsFrom':'gpsTo');
-  const status=document.getElementById(which==='from'?'gpsFromStatus':'gpsToStatus');
-
-  button.addEventListener('click',()=>{
-    if(!navigator.geolocation){
-      status.textContent='GPS indisponible sur ce navigateur.';
-      return;
-    }
-
-    status.textContent='Recherche de votre position…';
-
-    navigator.geolocation.getCurrentPosition(async p=>{
-      const lat=p.coords.latitude;
-      const lng=p.coords.longitude;
-
-      addPoint(which,lat,lng,which==='from'?'Départ GPS':'Arrivée GPS');
-      status.textContent='Position obtenue. Recherche de l’adresse…';
-
-      const d=await reverseGeocode(lat,lng);
-      const a=d&&d.address||{};
-      const city=a.city||a.town||a.village||a.suburb||a.county||'';
-      const street=[a.road,a.house_number].filter(Boolean).join(' ');
-
-      document.getElementById(which==='from'?'fromCommune':'toCommune').value=
-        city || 'Position GPS ('+lat.toFixed(4)+', '+lng.toFixed(4)+')';
-
-      document.getElementById(which==='from'?'fromAddress':'toAddress').value=
-        street || ('GPS '+lat.toFixed(6)+', '+lng.toFixed(6));
-
-      status.textContent=city
-        ?'Adresse GPS renseignée : '+city
-        :'Coordonnées GPS renseignées dans le champ adresse.';
-    },()=>{
-      status.textContent='Position inaccessible. Activez le GPS et autorisez le navigateur.';
-    },{enableHighAccuracy:true,timeout:15000});
-  });
-}
-
-setupGPS('from');
-setupGPS('to');
-
-document.getElementById('date').min=new Date().toISOString().slice(0,10);
-
-document.getElementById('orderForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-
-  const result=document.getElementById('result');
-  const btn=document.getElementById('submitBtn');
-  result.className='';
-  result.style.display='block';
-  result.textContent='Envoi de la demande au serveur GREAT EXPERTIZ…';
-  btn.disabled=true;
-  btn.textContent='Envoi en cours…';
-
-  const q=+quantity.value;
-  const floors=+document.getElementById('floors').value;
-  const handlers=+document.getElementById('handlers').value;
-  const estimatedPrice=calculateBase(q)+Math.max(0,floors-1)*5000+handlers*5000;
-
-  const goodsList=objects.map((o,i)=>{
-    const c=grid.querySelector('[data-i="'+i+'"]');
-    return c.checked
-      ?o[0]+' x '+grid.querySelector('[data-q="'+i+'"]').value
-      :'';
-  }).filter(Boolean).join(', ');
-
-  const data={
-    action:'createOrder',
-    service:document.getElementById('service').value,
-    vehicle:vehicle.value,
-    goods:(document.getElementById('goods').value+
-      ' | Objets : '+(goodsList||'non détaillés')).trim(),
-    quantity:q,
-    estimatedPrice:estimatedPrice,
-    date:document.getElementById('date').value,
-    fromCommune:document.getElementById('fromCommune').value.trim(),
-    fromAddress:document.getElementById('fromAddress').value.trim(),
-    toCommune:document.getElementById('toCommune').value.trim(),
-    toAddress:document.getElementById('toAddress').value.trim(),
-    customerName:document.getElementById('customer').value.trim(),
-    phone:document.getElementById('phone').value.trim(),
-    email:document.getElementById('email').value.trim(),
-    notes:document.getElementById('notes').value.trim(),
-    floors:floors,
-    handlers:handlers
+function money(n){return Math.round(n).toLocaleString("fr-FR")+" FCFA"}
+function isMove(){$("service").value==="demenagement"}
+function drawCatalog(){
+ $("items").innerHTML="";
+ catalog.forEach(([name,vol])=>{
+  const b=document.createElement("button");
+  b.type="button";b.className="itembtn";b.textContent=name;
+  b.onclick=()=>{
+   const found=selected.find(x=>x.name===name);
+   if(found)found.qty++;
+   else selected.push({name,vol,qty:1});
+   renderSelected();
   };
-
+  $("items").appendChild(b);
+ });
+}
+function renderSelected(){
+ $("chosen").innerHTML="";
+ selected.forEach((item,i)=>{
+  const tag=document.createElement("span");
+  tag.className="tag";
+  tag.append(document.createTextNode(item.name+" × "+item.qty+" ("+(item.vol*item.qty).toFixed(2)+" CBM) "));
+  const minus=document.createElement("button");
+  minus.type="button";minus.textContent="−";
+  minus.title="Retirer une unité";
+  minus.onclick=()=>{item.qty--;if(item.qty<=0)selected.splice(i,1);renderSelected()};
+  const plus=document.createElement("button");
+  plus.type="button";plus.textContent="+";
+  plus.title="Ajouter une unité";
+  plus.onclick=()=>{item.qty++;renderSelected()};
+  tag.append(minus,plus);
+  $("chosen").appendChild(tag);
+ });
+ if(selected.length){
+  const volume=selected.reduce((s,x)=>s+x.vol*x.qty,0);
+  if(isMove())$("amount").value=volume.toFixed(2);
+  $("conversion").textContent="Volume des objets sélectionnés : "+volume.toFixed(2)+" CBM. Le poids réel dépend de la nature des articles.";
+ }else $("conversion").textContent="Ajoutez les objets pour calculer automatiquement le volume estimé.";
+ updatePrice();
+}
+function updateUnits(){
+ const move=isMove();
+ $("amountLabel").textContent=move?"Volume total (CBM) *":"Poids total (tonnes) *";
+ $("amount").step=move?"0.1":"0.1";
+ $("amount").value=move?(selected.reduce((s,x)=>s+x.vol*x.qty,0)||2):"1";
+ $("conversion").textContent=move?"Le prix du déménagement est calculé à partir du volume CBM.":"Indiquez le poids réel en tonnes. Une conversion exacte depuis le CBM n’est pas possible sans connaître la densité.";
+ updatePrice();
+}
+function updatePrice(){
+ const move=isMove();
+ const qty=Math.max(0,Number($("amount").value)||0);
+ const base=move?(qty<=2?20000:Math.ceil(qty)*10000):null;
+ const floor=Number($("floor").value)>=2?5000:0;
+ const workers=Math.max(0,Math.floor(Number($("workers").value)||0))*5000;
+ const from=$("fromCity").value.trim(),to=$("toCity").value.trim();
+ const same=from&&to&&normal(from)===normal(to);
+ const chargeKm=move&&from&&to&&!same&&routeDistanceKm!==null;
+ const km=chargeKm?Math.round(routeDistanceKm*200):0;
+ $("basePrice").textContent=move?money(base):"À confirmer";
+ $("kmLine").textContent=move?(same?"Même commune : 0 km facturé":routeDistanceKm!==null?routeDistanceKm.toFixed(1)+" km":"À calculer"):"Selon grille de tonnage";
+ $("kmPrice").textContent=move?(same?money(0):chargeKm?money(km):"À calculer"):money(0);
+ $("floorPrice").textContent=money(floor);
+ $("workerPrice").textContent=money(workers);
+ if(move){
+  const total=base+floor+workers+km;
+  $("totalPrice").textContent=money(total);
+  $("priceNote").textContent=qty>10?"Volume supérieur à 10 CBM : tarif à confirmer pour véhicule supplémentaire ou sous-traitance.":"Estimation indicative, à confirmer avant la prise en charge.";
+ }else{
+  $("totalPrice").textContent="À confirmer";
+  $("priceNote").textContent="Pour les prestations facturées en tonnes, le tarif au tonnage doit être confirmé par GREAT EXPERTIZ.";
+ }
+}
+function normal(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim()}
+function initMap(){
+ if(!window.L){$("routeStatus").textContent="La bibliothèque de carte n’a pas pu charger. Vérifiez votre connexion internet.";return}
+ map=L.map("map").setView([5.35,-4.02],10);
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
+  maxZoom:19,attribution:"© OpenStreetMap"
+ }).addTo(map);
+ map.whenReady(()=>{$("routeStatus").textContent="Carte prête. Détectez votre position ou saisissez les lieux."});
+}
+function setPoint(which,lat,lon,label){
+ coords[which]=[lat,lon];
+ if(markers[which])map.removeLayer(markers[which]);
+ markers[which]=L.marker([lat,lon]).addTo(map).bindPopup(label);
+ map.setView([lat,lon],15,{animate:true});
+ if(coords.from&&coords.to)calculateRoute();
+}
+async function geocode(query){
+ const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=ci&q="+encodeURIComponent(query+", Côte d'Ivoire");
+ const r=await fetch(url);
+ if(!r.ok)throw Error("Recherche de lieu indisponible");
+ const data=await r.json();
+ if(!data.length)throw Error("Lieu introuvable : "+query);
+ return [Number(data[0].lat),Number(data[0].lon)];
+}
+async function locateText(which){
+ const city=$(which+"City").value.trim();
+ const address=$(which+"Address").value.trim();
+ if(!city)return;
+ $("routeStatus").textContent="Recherche du lieu sur la carte…";
+ try{
+  const p=await geocode([address,city].filter(Boolean).join(", "));
+  setPoint(which,p[0],p[1],which==="from"?"Départ":"Arrivée");
+  $("routeStatus").textContent="Lieu localisé : "+city;
+ }catch(e){$("routeStatus").textContent=e.message+" ; vérifiez l’orthographe ou ajoutez le quartier."}
+}
+async function calculateRoute(){
+ if(!coords.from||!coords.to)return;
+ $("routeStatus").textContent="Calcul de l’itinéraire routier…";
+ try{
+  const a=coords.from,b=coords.to;
+  const url="https://router.project-osrm.org/route/v1/driving/"+a[1]+","+a[0]+";"+b[1]+","+b[0]+"?overview=full&geometries=geojson";
+  const r=await fetch(url);
+  if(!r.ok)throw Error("Itinéraire indisponible");
+  const d=await r.json();
+  if(!d.routes||!d.routes.length)throw Error("Aucun itinéraire routier trouvé");
+  const route=d.routes[0];
+  routeDistanceKm=route.distance/1000;
+  $("distance").value=routeDistanceKm.toFixed(1)+" km";
+  const minutes=Math.round(route.duration/60);
+  $("duration").value=minutes<60?minutes+" min":Math.floor(minutes/60)+" h "+(minutes%60)+" min";
+  if(routeLine)map.removeLayer(routeLine);
+  routeLine=L.geoJSON(route.geometry,{style:{color:"#287da9",weight:5,opacity:.85}}).addTo(map);
+  map.fitBounds(routeLine.getBounds(),{padding:[25,25]});
+  $("routeStatus").textContent="Itinéraire calculé. Durée indicative, sans trafic en temps réel.";
+  updatePrice();
+ }catch(e){
+  $("routeStatus").textContent="Impossible de calculer l’itinéraire : "+e.message+". Vérifiez la connexion et les adresses.";
+  routeDistanceKm=null;updatePrice();
+ }
+}
+async function requestGPS(which){
+ const status=$(which==="from"?"gpsFromStatus":"gpsToStatus");
+ if(!navigator.geolocation){status.textContent="GPS non pris en charge. Saisissez l’adresse manuellement.";return}
+ status.textContent="Recherche de votre position…";
+ navigator.geolocation.getCurrentPosition(async p=>{
+  const lat=p.coords.latitude,lon=p.coords.longitude;
+  setPoint(which,lat,lon,which==="from"?"Départ GPS":"Arrivée GPS");
+  status.textContent="Position détectée. Recherche de l’adresse…";
   try{
-    const response=await fetch(API_URL,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=UTF-8'},
-      body:JSON.stringify(data),
-      redirect:'follow'
-    });
+   const url="https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+lat+"&lon="+lon;
+   const r=await fetch(url);const d=await r.json();const a=d.address||{};
+   $(which+"City").value=a.city||a.town||a.village||a.suburb||a.county||"Position GPS";
+   $(which+"Address").value=[a.road,a.house_number].filter(Boolean).join(" ")||lat.toFixed(6)+", "+lon.toFixed(6);
+   status.textContent="Position détectée et affichée sur la carte.";
+   updatePrice();
+  }catch(e){
+   $(which+"City").value="Position GPS";
+   $(which+"Address").value=lat.toFixed(6)+", "+lon.toFixed(6);
+   status.textContent="Coordonnées GPS récupérées. L’adresse n’a pas pu être identifiée.";
+  }
+ },e=>{
+  status.textContent=e.code===1?"Autorisation refusée : autorisez la localisation dans les réglages du navigateur pour ce site.":e.code===2?"Position indisponible : activez la localisation du téléphone.":"Délai dépassé : réessayez dans un endroit où le GPS capte mieux.";
+ },{enableHighAccuracy:true,timeout:20000,maximumAge:60000});
+}
+drawCatalog();
+initMap();
+$("service").addEventListener("change",updateUnits);
+$("amount").addEventListener("input",updatePrice);
+$("floor").addEventListener("change",updatePrice);
+$("workers").addEventListener("input",updatePrice);
+$("fromCity").addEventListener("change",()=>locateText("from"));
+$("toCity").addEventListener("change",()=>locateText("to"));
+$("fromAddress").addEventListener("change",()=>locateText("from"));
+$("toAddress").addEventListener("change",()=>locateText("to"));
+$("gpsFrom").addEventListener("click",()=>requestGPS("from"));
+$("gpsTo").addEventListener("click",()=>requestGPS("to"));
+["fromCity","toCity"].forEach(id=>$(id).addEventListener("input",updatePrice));
+$("date").min=new Date().toISOString().slice(0,10);
+updateUnits();
 
-    const text=await response.text();
-    let out;
+/* Demande de position au chargement : le navigateur peut demander son autorisation. */
+window.addEventListener("load",()=>setTimeout(()=>requestGPS("from"),700));
 
-    try{
-      out=JSON.parse(text);
-    }catch(_){
-      throw Error('Réponse serveur inattendue. Aucun code fiable reçu.');
-    }
-
-    if(!response.ok||!out.ok||!out.code){
-      throw Error(out.error||'Le serveur n’a pas conf
+$("form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const result=$("result");
+ result.style.display="block";
+ result.style.background="#fff4e8";
+ result.textContent="Préparation de la demande…";
+ if(!$("service").value||!$("vehicle").value||!$("fromCity").value.trim()||!$("toCity").value.trim()){
+  result.textContent="Veuillez compléter la prestation, le véhicule, le départ et l’arrivée.";return;
+ }
+ const move=isMove();
+ const qty=Number($("amount").value)||0;
+ const base=move?(qty<=2?20000:Math.ceil(qty)*10000):null;
+ const floor=Number($("floor").value)>=2?5000:0;
+ const workers=Math.max(0,Math.floor(Number($("workers").value)||0))*5000;
+ const same=normal($("fromCity").value)===normal($("toCity").value);
+ const kmCost=move&&!same&&routeDistanceKm!==null?Math.round(routeDistanceKm*200):0;
+ const total=move?base+floor+workers+kmCost:null;
+ const goodsList=selected.map(x=>x.name+" x"+x.qty).join(", ");
+ const payload={
+  service:$("service").selectedOptions[0].textContent,
+  vehicle:$("vehicle").value,
+  goods:[goodsList,$("otherGoods").value].filter(Boolean).join(" ; "),
+  quantity:qty,
+  unit:move?"CBM":"tonnes",
+  estimatedPrice:total===null?"À confirmer":tota
