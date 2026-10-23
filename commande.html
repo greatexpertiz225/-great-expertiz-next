@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,745 +6,331 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#78833b">
 <title>Commande | GREAT EXPERTIZ</title>
-
-<link rel="stylesheet"
- href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root {
-  --green:#78833b;
-  --green-dark:#53642a;
-  --green-light:#e8f1d8;
-  --blue:#287da9;
-  --ink:#26333b;
-  --muted:#687780;
-  --line:#dce4e7;
-  --bg:#f5f7f7;
-  --white:#fff;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:Arial,Helvetica,sans-serif;
-}
-header {
-  padding:18px 5%;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-}
-.brand {
-  font-size:22px;
-  font-weight:900;
-  color:var(--green);
-}
-.brand span { color:var(--blue); }
-header small {
-  display:block;
-  margin-top:5px;
-  font-size:10px;
-  letter-spacing:2px;
-}
-.hero {
-  padding:26px 5%;
-  background:linear-gradient(120deg,#eaf0df,#edf5f9);
-}
-.hero h1 { margin:0 0 8px;font-size:27px; }
-.hero p { margin:0;color:#53646c;line-height:1.5; }
-main {
-  max-width:1120px;
-  margin:22px auto;
-  padding:0 12px 35px;
-}
-.grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-.panel {
-  min-width:0;
-  padding:18px;
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:15px;
-  box-shadow:0 3px 12px #26333b08;
-}
-h2 { margin:0 0 13px;color:var(--green);font-size:19px; }
-h3 { margin:20px 0 9px;font-size:15px; }
-p { line-height:1.45; }
-label {
-  display:block;
-  margin:12px 0 5px;
-  font-size:13px;
-  font-weight:700;
-}
-input,select,textarea {
-  display:block;
-  width:100%;
-  min-width:0;
-  padding:12px;
-  border:1px solid #cbd5da;
-  border-radius:9px;
-  background:#fff;
-  color:var(--ink);
-  font:inherit;
-}
-input:focus,select:focus,textarea:focus {
-  outline:2px solid #78833b40;
-  border-color:var(--green);
-}
-button {
-  font:inherit;
-  font-weight:700;
-  cursor:pointer;
-  border:0;
-  border-radius:9px;
-  padding:11px 13px;
-}
-button:disabled { opacity:.6;cursor:wait; }
-.primary {
-  width:100%;
-  margin-top:15px;
-  background:var(--green);
-  color:white;
-}
-.secondary {
-  width:100%;
-  margin-top:8px;
-  background:#eaf5fb;
-  color:var(--blue);
-}
-.two {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.small {
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
-}
-.status {
-  margin-top:7px;
-  color:#53646c;
-  font-size:12px;
-  overflow-wrap:anywhere;
-}
-#items {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:8px;
-  margin-top:12px;
-}
-.itembtn {
-  min-height:48px;
-  padding:10px;
-  text-align:left;
-  background:#f0f5f7;
-  color:#294b5a;
-  border:1px solid #d9e5e9;
-  transition:background .15s,border-color .15s;
-}
-.itembtn.selected {
-  background:#e3efd0;
-  color:#3f5b22;
-  border:2px solid #78833b;
-}
-.itembtn .qty {
-  float:right;
-  display:inline-block;
-  min-width:22px;
-  text-align:center;
-  padding:3px 5px;
-  margin-left:4px;
-  border-radius:12px;
-  background:#ffffffbd;
-}
-.tags {
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-  margin:12px 0;
-}
-.tag {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:5px;
-  background:#edf3df;
-  border:1px solid #d9e4bd;
-  border-radius:20px;
-  padding:6px 8px;
-  font-size:12px;
-}
-.tag button {
-  padding:3px 7px;
-  background:#fff;
-  color:#53642a;
-}
-.custom-box {
-  margin-top:12px;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:#fafcfc;
-}
-#map {
-  width:100%;
-  height:340px;
-  min-height:300px;
-  margin-top:12px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  overflow:hidden;
-  background:#eaf0f3;
-}
-.leaflet-container { width:100%;height:100%; }
-.summary {
-  padding:14px;
-  margin-top:15px;
-  background:#f0f4e5;
-  border-radius:11px;
-}
-.summary h3 { margin-top:0; }
-.summary p {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  margin:9px 0;
-  font-size:13px;
-}
-.summary p span { flex:1; }
-.summary strong { text-align:right; }
-.total {
-  border-top:1px solid #d0d9b6;
-  padding-top:12px;
-  color:var(--green-dark);
-  font-size:18px!important;
-  font-weight:800;
-}
-#result {
-  display:none;
-  margin-top:12px;
-  padding:13px;
-  border-radius:9px;
-  line-height:1.5;
-  overflow-wrap:anywhere;
-}
-#result.ok { display:block;background:#edf3df; }
-#result.error { display:block;background:#fff0f0;color:#8d2525; }
-#result.wait { display:block;background:#fff4e8; }
-footer {
-  padding:22px;
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
-}
-@media(max-width:740px) {
-  .grid { grid-template-columns:1fr; }
-  .panel { padding:14px; }
-  .hero h1 { font-size:23px; }
-  #items { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  #map { height:300px; }
-}
-@media(max-width:360px) {
-  .two { grid-template-columns:1fr; }
-  #items { grid-template-columns:1fr; }
-}
+:root{--g:#78833b;--gd:#53642a;--b:#287da9;--ink:#26333b;--muted:#687780;--line:#dce4e7;--bg:#f5f7f7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,sans-serif}
+header{background:white;padding:18px 5%;border-bottom:1px solid var(--line)}
+.brand{font-size:23px;font-weight:900;color:var(--g)}
+.brand span{color:var(--b)}
+header small{display:block;margin-top:5px;letter-spacing:2px}
+.hero{padding:22px 5%;background:linear-gradient(120deg,#eaf0df,#edf5f9)}
+main{max-width:1100px;margin:20px auto;padding:0 14px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+h2{font-size:20px;margin:0 0 14px}
+h3{font-size:16px;margin:20px 0 10px}
+label{display:block;font-weight:700;font-size:13px;margin:12px 0 6px}
+input,select,textarea,button{font:inherit}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5d9;border-radius:8px;background:#fff;color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
+button{border:0;border-radius:8px;padding:11px 14px;background:var(--g);color:white;font-weight:700;cursor:pointer}
+button.secondary{background:#e8f1d8;color:var(--gd)}
+button:disabled{opacity:.5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#map{height:330px;border-radius:10px;border:1px solid var(--line);margin-top:12px}
+.muted,.hint{font-size:12px;color:var(--muted);line-height:1.5}
+.notice{background:#eef5e7;border-left:4px solid var(--g);padding:12px;border-radius:6px;line-height:1.5}
+.item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
+.item.selected{background:#e8f1d8;border-color:var(--g)}
+.item button{padding:7px 10px;flex-shrink:0}
+.total{background:#f4f7ed;padding:14px;border-radius:10px;margin-top:12px}
+.total strong{font-size:22px;color:var(--gd)}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+#status{padding:10px;background:#f5f7f7;border-radius:8px;white-space:pre-wrap}
+@media(max-width:760px){main{grid-template-columns:1fr}.grid2{grid-template-columns:1fr 1fr}#map{height:290px}}
 </style>
 </head>
-
 <body>
 <header>
   <div class="brand">GREAT <span>EXPERTIZ</span></div>
   <small>TRANSPORT · LOGISTIQUE · B2B</small>
 </header>
-
 <section class="hero">
-  <h1>Organisons votre transport</h1>
-  <p>Choisissez votre prestation, vos articles et votre itinéraire en Côte d’Ivoire.</p>
+  <h1>Organisez votre transport</h1>
+  <p>Renseignez votre trajet et vos marchandises pour obtenir une estimation indicative.</p>
 </section>
 
 <main>
-<form id="form">
-<div class="grid">
+<section class="card">
+<h2>1. Départ et arrivée</h2>
+<label for="from">Adresse de départ *</label>
+<input id="from" placeholder="Commune, quartier, rue…">
+<div class="actions">
+<button type="button" onclick="useGPS('from')">GPS départ</button>
+<button class="secondary" type="button" onclick="searchAddress('from')">Localiser</button>
+</div>
+<label for="to">Adresse d’arrivée *</label>
+<input id="to" placeholder="Commune, quartier, rue…">
+<div class="actions">
+<button type="button" onclick="useGPS('to')">GPS arrivée</button>
+<button class="secondary" type="button" onclick="searchAddress('to')">Localiser</button>
+<button class="secondary" type="button" onclick="route()">Calculer le trajet</button>
+</div>
+<div id="map" aria-label="Carte interactive du trajet"></div>
+<p class="muted">Déplacez la carte et touchez-la pour choisir une position. Le GPS nécessite une autorisation et une connexion compatible.</p>
+<div class="grid2">
+<div><label>Distance routière</label><input id="distance" readonly value="À calculer"></div>
+<div><label>Durée estimée</label><input id="duration" readonly value="À calculer"></div>
+</div>
 
-<section class="panel">
-<h2>1. Votre prestation</h2>
-
-<label for="service">Type de prestation *</label>
-<select id="service" required>
-  <option value="">Sélectionner</option>
-  <option value="demenagement">Déménagement</option>
-  <option value="marchandises">Transport de marchandises</option>
-  <option value="livraison">Livraison professionnelle</option>
-  <option value="evenementiel">Transport événementiel / PLV</option>
-  <option value="interagence">Transfert inter-agences</option>
+<h3>2. Prestation et véhicule</h3>
+<label for="service">Type de prestation</label>
+<select id="service">
+<option>Transport de marchandises</option>
+<option>Déménagement</option>
+<option>Livraison B2B</option>
+<option>Transport événementiel / PLV</option>
+<option>Transport urgent</option>
+<option>Autre prestation</option>
 </select>
-
-<label for="vehicle">Type de véhicule *</label>
-<select id="vehicle" required>
-  <option value="">Sélectionner</option>
-  <option>Petit utilitaire</option>
-  <option>Fourgonnette</option>
-  <option>Camionnette</option>
-  <option>Fourgon grand volume</option>
-  <option>Camion</option>
-  <option>Camion frigorifique</option>
-  <option>Poids lourd</option>
+<label for="vehicle">Catégorie de véhicule</label>
+<select id="vehicle">
+<option value="utilitaire">Utilitaire / fourgonnette</option>
+<option value="camionnette">Camionnette</option>
+<option value="camion">Camion / poids lourd — devis à confirmer</option>
+<option value="frigo">Camion frigorifique — devis à confirmer</option>
+<option value="semi">Semi-remorque — devis à confirmer</option>
 </select>
+<div class="grid2">
+<div><label for="floors">Étage à desservir</label>
+<select id="floors"><option value="0">Rez-de-chaussée</option><option value="1">1er étage</option><option value="2">2e étage</option><option value="3">3e étage</option><option value="4">4e étage ou plus</option></select></div>
+<div><label for="handlers">Manutentionnaires supplémentaires</label>
+<input id="handlers" type="number" min="0" max="20" value="0"></div>
+</div>
+</section>
 
-<h3>Catalogue des objets</h3>
-<p class="small">
-Touchez un article : la quantité commence à 1. Chaque nouveau clic ajoute une unité.
-Les articles sélectionnés deviennent verts.
-</p>
-
+<section class="card">
+<h2>3. Marchandises</h2>
+<p class="muted">Touchez Ajouter pour sélectionner un article. Réutilisez le bouton pour augmenter sa quantité.</p>
+<label for="category">Catégorie</label>
+<select id="category" onchange="showItems()">
+<option value="Mobilier">Mobilier</option>
+<option value="Électroménager">Électroménager</option>
+<option value="Cartons et effets personnels">Cartons et effets personnels</option>
+<option value="Informatique et bureau">Informatique et bureau</option>
+<option value="Commerce et marchandises">Commerce et marchandises</option>
+<option value="Événementiel">Événementiel</option>
+<option value="Autres">Autres articles</option>
+</select>
 <div id="items"></div>
-<div id="chosen" class="tags"></div>
-
-<div class="custom-box">
-  <h3 style="margin-top:0">Objet non répertorié</h3>
-  <label for="customName">Description de l’objet</label>
-  <input id="customName" placeholder="Ex. meuble TV, cartons de dossiers">
-
-  <div class="two">
-    <div>
-      <label for="customQty">Quantité</label>
-      <input id="customQty" type="number" min="1" step="1" value="1">
-    </div>
-    <div>
-      <label for="customVol">Volume estimé par objet (CBM)</label>
-      <input id="customVol" type="number" min="0.01" step="0.01" value="0.25">
-    </div>
-  </div>
-  <button class="secondary" id="addCustom" type="button">+ Ajouter cet objet</button>
+<h3>Article personnalisé</h3>
+<label for="customName">Description</label>
+<input id="customName" placeholder="Nom ou description de l’article">
+<div class="grid2">
+<div><label for="customQty">Quantité</label><input id="customQty" type="number" min="1" value="1"></div>
+<div><label for="customCbm">Volume unitaire estimé (CBM)</label><input id="customCbm" type="number" min="0" step="0.01" value="0"></div>
 </div>
+<button type="button" class="secondary" onclick="addCustom()">Ajouter l’article personnalisé</button>
+<div id="selected"></div>
 
-<div class="two">
-  <div>
-    <label id="amountLabel" for="amount">Volume total (CBM) *</label>
-    <input id="amount" type="number" min="0.1" step="0.1" value="2" required>
-  </div>
-  <div>
-    <label for="date">Date souhaitée *</label>
-    <input id="date" type="date" required>
-  </div>
-</div>
-<p id="conversion" class="small">
-Ajoutez les objets pour obtenir une estimation du volume.
-</p>
-<p class="small">
-Pour un déménagement, le volume utilisé pour le tarif est arrondi à l’entier le plus proche à la validation.
-</p>
-
-<label for="otherGoods">Précisions sur la marchandise</label>
-<textarea id="otherGoods" rows="2"
- placeholder="Fragilité, poids réel, contraintes particulières…"></textarea>
-
-<h3>Options de manutention</h3>
-<label for="floor">Étage au chargement</label>
-<select id="floor">
-  <option value="0">Rez-de-chaussée</option>
-  <option value="1">1er étage — sans supplément</option>
-  <option value="2">2e étage — supplément 5 000 FCFA</option>
-  <option value="3">3e étage — supplément 5 000 FCFA</option>
-  <option value="4">4e étage — supplément 5 000 FCFA</option>
-  <option value="5">5e étage ou plus — supplément 5 000 FCFA</option>
+<h3>4. Protection et emballages</h3>
+<div class="notice"><strong>Protection standard incluse dans le transport :</strong> précautions normales de manutention, arrimage adapté et couvertures/protections réutilisables. Aucun supplément distinct pour cette protection standard.</div>
+<label for="packingLevel">Protection souhaitée</label>
+<select id="packingLevel" onchange="updateTotal()">
+<option value="standard">Protection standard incluse</option>
+<option value="extra">Emballages supplémentaires à la charge du client</option>
+<option value="reinforced">Protection renforcée / emballage complet — sur devis</option>
 </select>
-<p class="small">Supplément unique de 5 000 FCFA à partir du 2e étage.</p>
+<p class="hint">Les emballages supplémentaires sont calculés selon les matériaux réellement utilisés, les quantités et les coûts confirmés. Vous pouvez fournir vos propres emballages adaptés.</p>
+<div class="grid2">
+<div><label for="cartonsQty">Cartons — quantité</label><input id="cartonsQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="cartonsCost">Coût total cartons (FCFA)</label><input id="cartonsCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="bubbleQty">Papier bulle — quantité</label><input id="bubbleQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="bubbleCost">Coût total papier bulle (FCFA)</label><input id="bubbleCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="stretchQty">Film étirable — quantité</label><input id="stretchQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="stretchCost">Coût total film étirable (FCFA)</label><input id="stretchCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="tapeQty">Ruban adhésif — quantité</label><input id="tapeQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="tapeCost">Coût total rubans (FCFA)</label><input id="tapeCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="coversQty">Housses jetables — quantité</label><input id="coversQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div><label for="coversCost">Coût total housses (FCFA)</label><input id="coversCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+</div>
+<label for="otherPacking">Autres matériaux ou emballages fournis par le client</label>
+<textarea id="otherPacking" placeholder="Précisions, quantités et coûts à confirmer"></textarea>
 
-<label for="workers">Nombre de manutentionnaires</label>
-<input id="workers" type="number" min="0" max="20" step="1" value="0">
-<p class="small">5 000 FCFA par manutentionnaire.</p>
+<h3>5. Coordonnées</h3>
+<div class="grid2">
+<div><label for="customer">Nom / entreprise *</label><input id="customer" required></div>
+<div><label for="phone">Téléphone *</label><input id="phone" type="tel" required></div>
+</div>
+<label for="email">E-mail</label><input id="email" type="email">
+<label for="date">Date souhaitée</label><input id="date" type="date">
+<label for="notes">Instructions complémentaires</label><textarea id="notes" placeholder="Précisions sur la marchandise, les accès, les horaires…"></textarea>
+
+<div class="total">
+<div>Volume total estimé</div><strong id="volumeOut">0 CBM</strong>
+<p>Volume facturable arrondi au palier supérieur : <b id="billableOut">0 CBM</b></p>
+<hr>
+<div>Transport estimé</div><strong id="transportOut">20 000 FCFA</strong>
+<p>Emballages supplémentaires : <b id="packingOut">0 FCFA</b></p>
+<p>Total indicatif : <b id="grandOut">20 000 FCFA</b></p>
+<p class="muted">Tarif de base jusqu’à 2 CBM : 20 000 FCFA. Au-delà, supplément de 10 000 FCFA par CBM facturable supplémentaire. Kilométrage estimé à 200 FCFA/km ; étage et manutention supplémentaires à confirmer. Les poids lourds, la protection renforcée et les trajets incomplets nécessitent une confirmation.</p>
+</div>
+<button type="button" style="width:100%;margin-top:14px" onclick="submitOrder()">Envoyer la demande</button>
+<p id="status" role="status">Aucune demande envoyée.</p>
 </section>
-
-<section class="panel">
-<h2>2. Départ et arrivée</h2>
-<p class="small">
-La commune ou la ville est obligatoire. Le quartier, la rue et le numéro sont facultatifs.
-La carte est centrée sur Abidjan et peut être déplacée vers les autres régions.
-</p>
-
-<label for="fromCity">Commune ou ville de départ *</label>
-<input id="fromCity" placeholder="Ex. Yopougon, Agboville, Bouaké"
- autocomplete="off" required>
-<div id="fromSuggestions" class="tags"></div>
-
-<label for="fromQuarter">Quartier de départ (facultatif)</label>
-<input id="fromQuarter" placeholder="Ex. Wassakara">
-
-<div class="two">
-  <div>
-    <label for="fromStreet">Rue (facultatif)</label>
-    <input id="fromStreet" placeholder="Nom de la rue">
-  </div>
-  <div>
-    <label for="fromNumber">N° (facultatif)</label>
-    <input id="fromNumber" placeholder="Numéro">
-  </div>
-</div>
-
-<button class="secondary" type="button" id="gpsFrom">◎ Utiliser ma position comme départ</button>
-<div id="gpsFromStatus" class="status"></div>
-
-<label for="toCity">Commune ou ville d’arrivée *</label>
-<input id="toCity" placeholder="Ex. Cocody, Daloa, Korhogo"
- autocomplete="off" required>
-<div id="toSuggestions" class="tags"></div>
-
-<label for="toQuarter">Quartier d’arrivée (facultatif)</label>
-<input id="toQuarter" placeholder="Ex. Saint-Jean">
-
-<div class="two">
-  <div>
-    <label for="toStreet">Rue (facultatif)</label>
-    <input id="toStreet" placeholder="Nom de la rue">
-  </div>
-  <div>
-    <label for="toNumber">N° (facultatif)</label>
-    <input id="toNumber" placeholder="Numéro">
-  </div>
-</div>
-
-<button class="secondary" type="button" id="gpsTo">◎ Utiliser ma position comme arrivée</button>
-<div id="gpsToStatus" class="status"></div>
-
-<div id="map" aria-label="Carte du trajet"></div>
-<div id="routeStatus" class="status">
-Initialisation de la carte…
-</div>
-
-<div class="two">
-  <div>
-    <label for="distance">Distance routière</label>
-    <input id="distance" readonly placeholder="À calculer">
-  </div>
-  <div>
-    <label for="duration">Durée estimée</label>
-    <input id="duration" readonly placeholder="À calculer">
-  </div>
-</div>
-
-<div class="summary">
-  <h3>Détail de l’estimation</h3>
-  <p><span>Volume facturable</span><strong id="roundedVolume">2 CBM</strong></p>
-  <p><span>Tarif de base / volume</span><strong id="basePrice">20 000 FCFA</strong></p>
-  <p><span>Distance routière</span><strong id="kmLine">À calculer</strong></p>
-  <p><span>Supplément kilométrique</span><strong id="kmPrice">À calculer</strong></p>
-  <p><span>Supplément d’étage</span><strong id="floorPrice">0 FCFA</strong></p>
-  <p><span>Manutentionnaires</span><strong id="workerPrice">0 FCFA</strong></p>
-  <p class="total"><span>Total estimé</span><strong id="totalPrice">20 000 FCFA</strong></p>
-  <p id="priceNote" class="small">
-    Estimation indicative à confirmer par GREAT EXPERTIZ.
-  </p>
-</div>
-</section>
-</div>
-
-<section class="panel" style="margin-top:16px">
-<h2>3. Vos coordonnées</h2>
-<div class="two">
-  <div>
-    <label for="customer">Nom complet *</label>
-    <input id="customer" autocomplete="name" required>
-  </div>
-  <div>
-    <label for="phone">Téléphone *</label>
-    <input id="phone" type="tel" autocomplete="tel" required>
-  </div>
-</div>
-
-<label for="email">E-mail (facultatif)</label>
-<input id="email" type="email" autocomplete="email">
-
-<label for="notes">Instructions complémentaires</label>
-<textarea id="notes" rows="2"></textarea>
-
-<button id="submit" class="primary" type="submit">Envoyer la demande</button>
-<div id="result" role="status" aria-live="polite"></div>
-</section>
-</form>
 </main>
-
-<footer>GREAT EXPERTIZ · Transport · Logistique · B2B</footer>
+<footer>GREAT EXPERTIZ — Transport · Logistique · B2B</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 "use strict";
 
-/* Endpoint Apps Script existant : ne pas remplacer par une URL inventée. */
-const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbz5PeGwyPxuY2o2A2RdHGvVp37zoRtS_QmohhRg5jw7QxvHsuRNVqTtX3dqcqtjy48hnA/exec";
-
-const $ = id => document.getElementById(id);
-
-const catalog = [
- ["Carton standard",0.08],
- ["Carton volumineux",0.15],
- ["Valise",0.12],
- ["Sac",0.08],
- ["Chaise",0.12],
- ["Fauteuil",0.5],
- ["Canapé 2 places",1.2],
- ["Canapé 3 places",1.8],
- ["Lit simple",0.8],
- ["Lit double",1.5],
- ["Matelas",0.45],
- ["Armoire",1.2],
- ["Commode",0.5],
- ["Table",0.6],
- ["Bureau",0.8],
- ["Réfrigérateur",0.7],
- ["Congélateur",0.6],
- ["Machine à laver",0.4],
- ["Télévision",0.12],
- ["Micro-ondes",0.08],
- ["Climatiseur",0.3],
- ["Bibliothèque",0.8]
-];
-
-const placesCI = [
- "Abidjan","Abobo","Adjamé","Anyama","Attécoubé","Bingerville",
- "Cocody","Koumassi","Marcory","Plateau","Port-Bouët","Treichville",
- "Songon","Yopougon","Agboville","Aboisso","Adzopé","Afféry",
- "Akoupé","Alépé","Azaguié","Béttié","Grand-Bassam","Bonoua",
- "Dabou","Grand-Lahou","Jacqueville","Sikensi","Tiassalé",
- "Toumodi","Yamoussoukro","Bouaké","Béoumi","Botro","Dabakala",
- "Katiola","Sakassou","Tiebissou","Dimbokro","Bocanda","M'Bahiakro",
- "Daoukro","Prikro","Abengourou","Agnibilékrou","Bongouanou",
- "Arrah","M'Batto","Gagnoa","Oumé","Ouragahio","Divo","Lakota",
- "Hiré","Fresco","Sassandra","Soubré","Buyo","Méagui","San-Pédro",
- "Tabou","Grand-Béréby","Daloa","Issia","Vavoua","Zoukougbeu",
- "Séguéla","Mankono","Kani","Touba","Odienné","Madinani",
- "Minignan","Samatiguila","Boundiali","Tengréla","Kouto","Korhogo",
- "Ferkessédougou","Boundiali","Sinématiali","M'Bengué","Dikodougou",
- "Kong","Ouangolodougou","Bouna","Doropo","Nassian","Téhini",
- "Bondoukou","Tanda","Transua","Sandégué","Kouassi-Datékro",
- "Man","Danané","Biankouma","Sipilou","Zouan-Hounien","Bangolo",
- "Duékoué","Guiglo","Bloléquin","Toulepleu","Taï","Facobly"
-];
-
-let selected = [];
-let customObjects = [];
-let coords = {from:null,to:null};
-let markers = {from:null,to:null};
-let routeLine = null;
-let routeDistanceKm = null;
-let routeDurationMin = null;
-let map = null;
-let mapReady = false;
-let lookupTimers = {};
-
-function money(n) {
-  return Math.round(n).toLocaleString("fr-FR") + " FCFA";
+/* Conserver l'URL Apps Script existante du projet. */
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycbz5PeGwyPxuY2o2A2RdHGvVp37zoRtS_QmohhRg5jw7QxvHsuRNVqTtX3dqcqtjy48hnA/exec";
+const fmt=n=>Math.round(n).toLocaleString("fr-FR")+" FCFA";
+const catalog={
+"Mobilier":[["Canapé",1.5],["Fauteuil",0.6],["Table",0.8],["Chaise",0.15],["Armoire",1.2],["Lit démonté",1.2],["Matelas",0.6]],
+"Électroménager":[["Réfrigérateur",0.8],["Congélateur",0.7],["Lave-linge",0.5],["Cuisinière",0.4],["Téléviseur",0.15]],
+"Cartons et effets personnels":[["Petit carton",0.06],["Carton moyen",0.1],["Grand carton",0.15],["Valise",0.12],["Sac",0.08]],
+"Informatique et bureau":[["Ordinateur",0.08],["Imprimante",0.15],["Bureau",0.7],["Fauteuil de bureau",0.35],["Étagère",0.4]],
+"Commerce et marchandises":[["Carton de marchandises",0.12],["Palette de marchandises",1.2],["Sac de marchandises",0.08],["Présentoir",0.5]],
+"Événementiel":[["Table pliante",0.3],["Chaise empilable",0.08],["Structure démontée",0.7],["Matériel audiovisuel",0.25]],
+"Autres":[["Objet divers",0.2]]
+};
+let goods=[],fromPoint=null,toPoint=null,markers={},routeLayer=null;
+const map=L.map("map").setView([5.35,-4.02],11);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+map.on("click",e=>{
+ const choice=prompt("Choisir le point à définir : départ ou arrivée ?","départ");
+ if(!choice)return;
+ if(choice.toLowerCase().startsWith("d"))setPoint("from",e.latlng.lat,e.latlng.lng,"Position choisie sur la carte");
+ else setPoint("to",e.latlng.lat,e.latlng.lng,"Position choisie sur la carte");
+});
+function setPoint(which,lat,lon,label){
+ const point={lat,lon};
+ if(which==="from")fromPoint=point;else toPoint=point;
+ document.getElementById(which).value=label+" ("+lat.toFixed(5)+", "+lon.toFixed(5)+")";
+ if(markers[which])map.removeLayer(markers[which]);
+ markers[which]=L.marker([lat,lon]).addTo(map).bindPopup(which==="from"?"Départ":"Arrivée");
+ map.setView([lat,lon],13);
 }
-
-function isMove() {
-  return $("service").value === "demenagement";
+function useGPS(which){
+ if(!navigator.geolocation){alert("La géolocalisation n’est pas disponible sur cet appareil.");return;}
+ navigator.geolocation.getCurrentPosition(pos=>{
+ setPoint(which,pos.coords.latitude,pos.coords.longitude,"Position GPS");
+ if(fromPoint&&toPoint)route();
+ },err=>alert("Position GPS impossible. Vérifiez l’autorisation et le signal GPS."),{enableHighAccuracy:true,timeout:15000,maximumAge:30000});
 }
-
-function normal(s) {
-  return String(s || "").toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .replace(/\s+/g," ")
-    .trim();
+async function searchAddress(which){
+ const q=document.getElementById(which).value.trim();
+ if(!q){alert("Saisissez une commune ou une adresse.");return;}
+ try{
+  const url="https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ci&q="+encodeURIComponent(q);
+  const res=await fetch(url);const data=await res.json();
+  if(!data.length)throw Error("Adresse non trouvée");
+  setPoint(which,+data[0].lat,+data[0].lon,data[0].display_name);
+  if(fromPoint&&toPoint)route();
+ }catch(e){alert("Adresse introuvable ou service indisponible. Vous pouvez sélectionner le point sur la carte.");}
 }
-
-function roundedCBM() {
-  const raw = Math.max(0,Number($("amount").value) || 0);
-  return Math.max(1,Math.round(raw));
+async function route(){
+ if(!fromPoint||!toPoint){alert("Définissez le départ et l’arrivée avec le GPS, la recherche d’adresse ou la carte.");return;}
+ try{
+  const url=`https://router.project-osrm.org/route/v1/driving/${fromPoint.lon},${fromPoint.lat};${toPoint.lon},${toPoint.lat}?overview=full&geometries=geojson`;
+  const res=await fetch(url);const data=await res.json();
+  if(!data.routes||!data.routes.length)throw Error("Itinéraire indisponible");
+  const r=data.routes[0];
+  document.getElementById("distance").value=(r.distance/1000).toFixed(1)+" km";
+  document.getElementById("duration").value=Math.round(r.duration/60)+" min";
+  if(routeLayer)map.removeLayer(routeLayer);
+  routeLayer=L.geoJSON({type:"Feature",geometry:r.geometry},{style:{color:"#287da9",weight:5}}).addTo(map);
+  map.fitBounds(routeLayer.getBounds(),{padding:[20,20]});updateTotal();
+ }catch(e){document.getElementById("distance").value="Indisponible";document.getElementById("duration").value="Indisponible";alert("Calcul d’itinéraire indisponible. Vérifiez la connexion et réessayez.");}
 }
-
-function objectVolume() {
-  const regular = selected.reduce((sum,item) =>
-    sum + item.vol * item.qty,0);
-  const custom = customObjects.reduce((sum,item) =>
-    sum + item.vol * item.qty,0);
-  return regular + custom;
+function showItems(){
+ const box=document.getElementById("items");box.innerHTML="";
+ (catalog[document.getElementById("category").value]||[]).forEach(([name,cbm])=>{
+  const div=document.createElement("div");div.className="item";
+  const text=document.createElement("span");text.textContent=name+" — "+cbm+" CBM/unité";
+  const btn=document.createElement("button");btn.type="button";btn.textContent="Ajouter";
+  btn.onclick=()=>addGood(name,cbm);
+  div.append(text,btn);box.appendChild(div);
+ });
 }
-
-function drawCatalog() {
-  const container = $("items");
-  container.innerHTML = "";
-
-  catalog.forEach(([name,vol]) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "itembtn";
-    button.dataset.name = name;
-    button.setAttribute("aria-pressed","false");
-    button.textContent = name;
-
-    button.addEventListener("click",() => {
-      const found = selected.find(item => item.name === name);
-
-      if (found) {
-        found.qty += 1;
-      } else {
-        selected.push({name,vol,qty:1});
-      }
-
-      renderSelected();
-    });
-
-    container.appendChild(button);
-  });
+function addGood(name,cbm){
+ const existing=goods.find(g=>g.name===name);
+ if(existing)existing.qty++;else goods.push({name,cbm,qty:1});
+ renderGoods();
 }
-
-function updateCatalogButtons() {
-  document.querySelectorAll(".itembtn").forEach(button => {
-    const item = selected.find(x => x.name === button.dataset.name);
-    const qty = item ? item.qty : 0;
-
-    button.classList.toggle("selected",qty > 0);
-    button.setAttribute("aria-pressed",qty > 0 ? "true" : "false");
-
-    button.innerHTML = "";
-
-    const label = document.createElement("span");
-    label.textContent = button.dataset.name;
-    button.appendChild(label);
-
-    if (qty > 0) {
-      const badge = document.createElement("span");
-      badge.className = "qty";
-      badge.textContent = qty;
-      button.appendChild(badge);
-    }
-  });
+function addCustom(){
+ const name=document.getElementById("customName").value.trim();
+ const qty=Math.max(1,parseInt(document.getElementById("customQty").value,10)||1);
+ const cbm=Math.max(0,Number(document.getElementById("customCbm").value)||0);
+ if(!name||cbm<=0){alert("Indiquez une description et un volume unitaire supérieur à zéro.");return;}
+ goods.push({name,cbm,qty});renderGoods();
+ document.getElementById("customName").value="";
 }
-
-function renderSelected() {
-  const container = $("chosen");
-  container.innerHTML = "";
-
-  const all = [
-    ...selected.map(item => ({...item,kind:"catalog"})),
-    ...customObjects.map(item => ({...item,kind:"custom"}))
-  ];
-
-  all.forEach(item => {
-    const tag = document.createElement("span");
-    tag.className = "tag";
-
-    const label = document.createElement("span");
-    label.textContent =
-      item.name + " × " + item.qty + " (" +
-      (item.vol * item.qty).toFixed(2) + " CBM)";
-    tag.appendChild(label);
-
-    const minus = document.createElement("button");
-    minus.type = "button";
-    minus.textContent = "−";
-    minus.setAttribute("aria-label","Retirer une unité de " + item.name);
-
-    minus.addEventListener("click",() => {
-      const list = item.kind === "catalog" ? selected : customObjects;
-      const found = list.find(x => x.name === item.name);
-
-      if (found) {
-        found.qty -= 1;
-        if (found.qty <= 0) {
-          const index = list.indexOf(found);
-          if (index >= 0) list.splice(index,1);
-        }
-      }
-      renderSelected();
-    });
-
-    const plus = document.createElement("button");
-    plus.type = "button";
-    plus.textContent = "+";
-    plus.setAttribute("aria-label","Ajouter une unité de " + item.name);
-
-    plus.addEventListener("click",() => {
-      const list = item.kind === "catalog" ? selected : customObjects;
-      const found = list.find(x => x.name === item.name);
-      if (found) found.qty += 1;
-      renderSelected();
-    });
-
-    tag.append(minus,plus);
-    container.appendChild(tag);
-  });
-
-  updateCatalogButtons();
-
-  const volume = objectVolume();
-
-  if (all.length) {
-    $("conversion").textContent =
-      "Volume estimé des articles : " + volume.toFixed(2) +
-      " CBM. Cette valeur est indicative.";
-    if (isMove()) $("amount").value = volume.toFixed(2);
-  } else {
-    $("conversion").textContent =
-      "Ajoutez des articles pour calculer le volume estimé.";
-  }
-
-  updatePrice();
+function renderGoods(){
+ const box=document.getElementById("selected");box.innerHTML="<h3>Articles sélectionnés</h3>";
+ if(!goods.length){box.innerHTML+="<p class='muted'>Aucun article sélectionné.</p>";updateTotal();return;}
+ goods.forEach((g,i)=>{
+  const row=document.createElement("div");row.className="item selected";
+  const text=document.createElement("span");text.textContent=`${g.name} — ${g.qty} × ${g.cbm} CBM`;
+  const controls=document.createElement("div");
+  const minus=document.createElement("button");minus.type="button";minus.textContent="−";minus.className="secondary";
+  minus.onclick=()=>{g.qty--;if(g.qty<=0)goods.splice(i,1);renderGoods();};
+  const plus=document.createElement("button");plus.type="button";plus.textContent="+";plus.style.marginLeft="4px";
+  plus.onclick=()=>{g.qty++;renderGoods();};
+  controls.append(minus,plus);row.append(text,controls);box.append(row);
+ });
+ updateTotal();
 }
-
-function updateUnits() {
-  const move = isMove();
-
-  $("amountLabel").textContent =
-    move ? "Volume total (CBM) *" : "Poids total (tonnes) *";
-
-  if (move) {
-    const volume = objectVolume();
-    $("amount").value = volume > 0 ? volume.toFixed(2) : "2";
-    $("conversion").textContent =
-      "Volume estimé des articles en CBM. La valeur facturable est arrondie à l’entier le plus proche.";
-  } else {
-    $("amount").value = "1";
-    $("conversion").textContent =
-      "Indiquez le poids en tonnes. Le tarif de cette prestation doit être confirmé.";
-  }
-
-  updatePrice();
+function getVolume(){return goods.reduce((s,g)=>s+g.cbm*g.qty,0);}
+function getPackingCost(){
+ return ["cartonsCost","bubbleCost","stretchCost","tapeCost","coversCost"]
+ .reduce((s,id)=>s+Math.max(0,Number(document.getElementById(id).value)||0),0);
 }
+function updateTotal(){
+ const volume=getVolume(),billable=Math.ceil(volume);
+ document.getElementById("volumeOut").textContent=volume.toFixed(2)+" CBM";
+ document.getElementById("billableOut").textContent=billable+" CBM";
+ let transport=billable<=2?20000:20000+Math.max(0,billable-2)*10000;
+ let km=parseFloat(document.getElementById("distance").value);
+ if(Number.isFinite(km))transport+=km*200;
+ const floors=Number(document.getElementById("floors").value)||0;
+ const handlers=Number(document.getElementById("handlers").value)||0;
+ if(floors>1)transport+=(floors-1)*5000;
+ transport+=handlers*5000;
+ const special=["camion","frigo","semi"].includes(document.getElementById("vehicle").value);
+ const packing=getPackingCost();
+ document.getElementById("transportOut").textContent=special?"À confirmer":fmt(transport);
+ document.getElementById("packingOut").textContent=fmt(packing);
+ document.getElementById("grandOut").textContent=special?"À confirmer":fmt(transport+packing);
+}
+["floors","handlers","vehicle"].forEach(id=>document.getElementById(id).addEventListener("change",updateTotal));
+showItems();renderGoods();updateTotal();
 
-function updatePrice() {
-  const move = isMove();
-  const qty = Math.max(0,Number($("amount").value) || 0);
-  const billable = Math.max(1,Math.round(qty));
-
-  /*
-   * Barème de base conservé depuis la version existante :
-   * jusqu'à 2 CBM : 20 000 FCFA
-   * au-delà : 10 000 FCFA par CBM facturable.
-   */
-  const base = move
-    ? (billable <= 2 ? 20000 : billable * 10000)
-    : null;
-
-  const floor = Number($("floor").value) >= 2 ? 5000 : 0;
-  const workers =
-    Math.max(0,Math.min(20,Math.floor(Number($("workers").value)||0))) *
-    5000;
-
-  const from = $("fromCity").value.trim();
-  const to = $("toCity").value.trim();
-  const same = from && to && normal(from) === normal(to);
-
-  const chargeKm =
-    move && from && to && !same && routeDistanceKm !== null;
-
-  /* Tarif kilométrique indicatif conservé de l'ancien fichier. */
-  const kmCost = chargeKm ? Math.round(routeDistanceKm * 200) : 0;
-
-  $("roundedVolume").textContent = move
-    ? billable + " CBM"
-    : qty.toLocaleString("fr-FR") + " tonne(s)";
-
-  $("basePrice").textContent = move ? money(base) : "À confirmer";
-
-  $("kmLine").textContent = !move
-    ? "Selon le trajet"
-    : same
-    ? "Même commune"
-    : r
+function getPackingSummary(){
+ const labels=[
+ ["Cartons","cartonsQty","cartonsCost"],["Papier bulle","bubbleQty","bubbleCost"],
+ ["Film étirable","stretchQty","stretchCost"],["Ruban adhésif","tapeQty","tapeCost"],
+ ["Housses jetables","coversQty","coversCost"]
+ ];
+ return labels.map(([name,q,c])=>`${name}: quantité ${document.getElementById(q).value||0}, coût saisi ${document.getElementById(c).value||0} FCFA`).join(" | ")
+ +" | Autres: "+document.getElementById("otherPacking").value
+ +" | Niveau: "+document.getElementById("packingLevel").value
+ +" | Protection standard incluse";
+}
+async function submitOrder(){
+ const status=document.getElementById("status");
+ const from=document.getElementById("from").value.trim(),to=document.getElementById("to").value.trim();
+ const customer=document.getElementById("customer").value.trim(),phone=document.getElementById("phone").value.trim();
+ if(!from||!to||!customer||!phone){alert("Complétez le départ, l’arrivée, le nom et le téléphone.");return;}
+ if(!goods.length){alert("Ajoutez au moins un article.");return;}
+ if(!fromPoint||!toPoint){alert("Localisez le départ et l’arrivée sur la carte avant l’envoi.");return;}
+ const volume=getVolume(),billable=Math.ceil(volume);
+ const payload={
+  action:"createOrder",
+  customer,phone,email:document.getElementById("email").value.trim(),
+  from,to,service:document.getElementById("service").value,
+  vehicle:document.getElementById("vehicle").value,
+  goods,volumeCbm:volume,billableCbm:billable,
+  distanceKm:parseFloat(document.getElementById("distance").value)||null,
+  duration:document.getElementById("duration").value,
+  floors:Number(document.getElementById("floors").value)||0,
+  handlers:Number(document.getElementById("handlers").value)||0,
+  desiredDate:document.getElementById("date").value,
+  packingLevel:document.getElementById("packingLevel").value,
+  packingCost:getPa
