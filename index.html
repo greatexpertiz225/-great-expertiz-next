@@ -1,470 +1,106 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="GREAT EXPERTIZ — Transport et logistique B2B en Côte d'Ivoire. Solutions pour entreprises, grossistes et professionnels.">
-  <title>GREAT EXPERTIZ | Transport & Logistique B2B</title>
-
-  <style>
-    :root {
-      --olive: #78833b;
-      --olive-dark: #59642b;
-      --blue: #79b9df;
-      --blue-dark: #287da9;
-      --white: #ffffff;
-      --ink: #26333b;
-      --muted: #687780;
-      --pale: #f4f8fa;
-      --line: #e2e9ed;
-      --radius: 18px;
-      --shadow: 0 14px 38px rgba(28, 53, 66, .10);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--ink);
-      background: var(--white);
-      line-height: 1.6;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-    .container { width: min(1160px, 92%); margin: auto; }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,.97);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-    .nav {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .brand {
-      display: inline-flex;
-      flex-direction: column;
-      line-height: 1;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      font-size: 23px;
-    }
-    .brand .great { color: var(--olive); }
-    .brand .expertiz { color: var(--blue-dark); }
-    .brand small {
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 9px;
-      letter-spacing: 2.2px;
-      font-weight: 700;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .nav-links a:hover { color: var(--olive-dark); }
-    .nav-cta {
-      padding: 12px 18px;
-      border-radius: 9px;
-      background: var(--olive);
-      color: white !important;
-    }
-
-    .hero {
-      position: relative;
-      min-height: 570px;
-      display: flex;
-      align-items: center;
-      color: white;
-      background:
-        linear-gradient(90deg, rgba(16,31,38,.82), rgba(16,31,38,.48) 58%, rgba(16,31,38,.14)),
-        url("https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2000&q=85")
-        center 55% / cover no-repeat;
-    }
-    .hero-content { padding: 78px 0 88px; max-width: 720px; }
-    .eyebrow {
-      display: inline-block;
-      color: var(--olive);
-      background: #f0f3e6;
-      border-radius: 30px;
-      padding: 7px 13px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-    }
-    .hero .eyebrow { color: white; background: rgba(120,131,59,.92); }
-    h1 {
-      margin: 22px 0 18px;
-      font-size: clamp(38px, 6vw, 66px);
-      line-height: 1.05;
-      letter-spacing: -1.8px;
-    }
-    .hero p {
-      max-width: 610px;
-      font-size: clamp(16px, 2vw, 19px);
-      color: rgba(255,255,255,.9);
-    }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      min-height: 49px;
-      padding: 13px 21px;
-      border: 2px solid transparent;
-      border-radius: 9px;
-      font-size: 14px;
-      font-weight: 800;
-      transition: transform .2s, background .2s;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: var(--olive); color: white; }
-    .btn-primary:hover { background: var(--olive-dark); }
-    .btn-light { background: white; color: var(--ink); }
-    .btn-outline { color: white; border-color: rgba(255,255,255,.75); }
-
-    .trust-strip {
-      background: white;
-      border-bottom: 1px solid var(--line);
-    }
-    .trust-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      padding: 25px 0;
-    }
-    .trust-item { display: flex; align-items: center; gap: 12px; }
-    .trust-icon {
-      flex: 0 0 42px;
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: #edf5fa;
-      color: var(--blue-dark);
-      font-size: 21px;
-    }
-    .trust-item strong { display: block; font-size: 14px; }
-    .trust-item span { display: block; color: var(--muted); font-size: 12px; }
-
-    section { padding: 78px 0; }
-    .section-head { max-width: 700px; margin-bottom: 35px; }
-    .section-head h2 {
-      margin: 12px 0;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.15;
-      letter-spacing: -.8px;
-    }
-    .section-head p { color: var(--muted); margin-bottom: 0; }
-    .services { background: var(--pale); }
-    .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .service-card {
-      padding: 26px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 5px 18px rgba(28,53,66,.03);
-    }
-    .service-card .symbol {
-      display: grid;
-      place-items: center;
-      width: 50px;
-      height: 50px;
-      margin-bottom: 18px;
-      border-radius: 14px;
-      background: #eff4e4;
-      font-size: 24px;
-    }
-    .service-card:nth-child(2) .symbol,
-    .service-card:nth-child(5) .symbol { background: #e8f4fb; }
-    .service-card h3 { margin: 0 0 8px; font-size: 19px; }
-    .service-card p { color: var(--muted); font-size: 14px; margin: 0; }
-
-    .fleet-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .fleet-card {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: white;
-      box-shadow: var(--shadow);
-    }
-    .fleet-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      background: #eaf0f3;
-    }
-    .fleet-info { padding: 20px; }
-    .fleet-info h3 { margin: 0 0 5px; font-size: 18px; }
-    .fleet-info p { margin: 0; color: var(--muted); font-size: 14px; }
-
-    .how { background: var(--pale); }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-    .step { padding: 25px; background: white; border-radius: var(--radius); }
-    .step-num {
-      width: 39px; height: 39px;
-      display: grid; place-items: center;
-      border-radius: 50%;
-      background: var(--blue);
-      color: white;
-      font-weight: 900;
-    }
-    .step h3 { margin-bottom: 7px; }
-    .step p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
-
-    .cta-panel {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 25px;
-      padding: 42px;
-      border-radius: 24px;
-      background: linear-gradient(115deg, #f0f4e5, #eaf5fb);
-    }
-    .cta-panel h2 { margin: 0 0 8px; font-size: clamp(25px, 4vw, 36px); }
-    .cta-panel p { margin: 0; color: var(--muted); }
-
-    footer { background: #f7f9fa; border-top: 1px solid var(--line); padding: 34px 0; }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .footer-note { color: var(--muted); font-size: 12px; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; font-weight: 700; }
-
-    @media (max-width: 800px) {
-      .nav { min-height: 70px; }
-      .nav-links { gap: 10px; }
-      .nav-links .nav-secondary { display: none; }
-      .nav-cta { padding: 10px 12px; font-size: 12px; }
-      .hero { min-height: 530px; background-position: 58% center; }
-      .hero-content { padding: 62px 0; }
-      .trust-grid { grid-template-columns: 1fr; gap: 14px; }
-      .service-grid, .fleet-grid, .steps { grid-template-columns: 1fr 1fr; }
-      .cta-panel { align-items: flex-start; flex-direction: column; padding: 30px; }
-    }
-    @media (max-width: 520px) {
-      .brand { font-size: 20px; }
-      .brand small { font-size: 8px; }
-      .nav-links { font-size: 12px; }
-      .hero { min-height: 560px; }
-      .hero h1 { letter-spacing: -1px; }
-      .actions { flex-direction: column; align-items: stretch; }
-      .btn { width: 100%; }
-      .service-grid, .fleet-grid, .steps { grid-template-columns: 1fr; }
-      section { padding: 58px 0; }
-      .fleet-card img { height: 210px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="GREAT EXPERTIZ — Transport et logistique B2B en Côte d'Ivoire.">
+<title>GREAT EXPERTIZ | Transport & Logistique B2B</title>
+<style>
+:root{--olive:#78833b;--olive-dark:#59642b;--blue:#79b9df;--blue-dark:#287da9;--ink:#26333b;--muted:#687780;--pale:#f4f8fa;--line:#e2e9ed;--radius:18px;--shadow:0 14px 38px #1c35421a}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.6}a{color:inherit;text-decoration:none}img{display:block;max-width:100%}.container{width:min(1160px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:#fffffffa;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:inline-flex;flex-direction:column;line-height:1;font-weight:900;letter-spacing:1.5px;font-size:23px}.great{color:var(--olive)}.expertiz{color:var(--blue-dark)}.brand small{margin-top:7px;color:var(--muted);font-size:9px;letter-spacing:2.2px;font-weight:700}.nav-links{display:flex;align-items:center;gap:20px;font-size:14px;font-weight:700}.nav-links a:hover{color:var(--olive-dark)}.nav-cta{padding:11px 15px;border-radius:9px;background:var(--olive);color:white!important}.lang{border:1px solid var(--line);background:white;border-radius:9px;padding:10px 12px;font-weight:800;cursor:pointer;color:var(--ink)}
+.hero{position:relative;min-height:570px;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#101f26d9,#101f267a 58%,#101f2624),url("https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=2000&q=85") center 55%/cover no-repeat}.hero-content{padding:78px 0 88px;max-width:720px}.eyebrow{display:inline-block;color:var(--olive);background:#f0f3e6;border-radius:30px;padding:7px 13px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}.hero .eyebrow{color:white;background:#78833bed}h1{margin:22px 0 18px;font-size:clamp(38px,6vw,66px);line-height:1.05;letter-spacing:-1.8px}.hero p{max-width:610px;font-size:clamp(16px,2vw,19px);color:#ffffffe8}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:49px;padding:13px 21px;border:2px solid transparent;border-radius:9px;font-size:14px;font-weight:800;transition:transform .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--olive);color:white}.btn-primary:hover{background:var(--olive-dark)}.btn-outline{color:white;border-color:#ffffffbf}
+.trust-strip{border-bottom:1px solid var(--line)}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:25px 0}.trust-item{display:flex;align-items:center;gap:12px}.trust-icon{flex:0 0 42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#edf5fa;color:var(--blue-dark);font-size:21px}.trust-item strong{display:block;font-size:14px}.trust-item span{display:block;color:var(--muted);font-size:12px}
+section{padding:76px 0}.section-head{max-width:720px;margin-bottom:35px}.section-head h2{margin:12px 0;font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.8px}.section-head p{color:var(--muted);margin-bottom:0}.services,.how{background:var(--pale)}.service-grid,.fleet-grid,.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.service-card{padding:26px;background:white;border:1px solid var(--line);border-radius:var(--radius)}.symbol{display:grid;place-items:center;width:50px;height:50px;margin-bottom:18px;border-radius:14px;background:#eff4e4;font-size:24px}.service-card:nth-child(2) .symbol{background:#e8f4fb}.service-card h3{margin:0 0 8px;font-size:19px}.service-card p,.fleet-info p,.step p{color:var(--muted);font-size:14px;margin:0}
+.fleet-card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:white;box-shadow:var(--shadow)}.fleet-card img{width:100%;height:220px;object-fit:cover;background:#eaf0f3}.fleet-info{padding:20px}.fleet-info h3{margin:0 0 5px;font-size:18px}.step{padding:25px;background:white;border-radius:var(--radius)}.step-num{width:39px;height:39px;display:grid;place-items:center;border-radius:50%;background:var(--blue);color:white;font-weight:900}.step h3{margin-bottom:7px}
+.cta-panel{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:42px;border-radius:24px;background:linear-gradient(115deg,#f0f4e5,#eaf5fb)}.cta-panel h2{margin:0 0 8px;font-size:clamp(25px,4vw,36px)}.cta-panel p{margin:0;color:var(--muted)}footer{background:#f7f9fa;border-top:1px solid var(--line);padding:34px 0}.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.footer-note{color:var(--muted);font-size:12px}.footer-links{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;font-weight:700}
+@media(max-width:800px){.nav{min-height:70px}.nav-links{gap:9px}.nav-links .nav-secondary{display:none}.nav-cta{padding:10px;font-size:12px}.hero{min-height:530px;background-position:58% center}.hero-content{padding:62px 0}.trust-grid{grid-template-columns:1fr;gap:14px}.service-grid,.fleet-grid,.steps{grid-template-columns:repeat(2,1fr)}.cta-panel{align-items:flex-start;flex-direction:column;padding:30px}}
+@media(max-width:520px){.brand{font-size:19px}.brand small{font-size:7px;letter-spacing:1.5px}.nav-links{font-size:12px}.nav-cta{max-width:125px;text-align:center}.lang{padding:9px}.hero{min-height:550px}.hero h1{letter-spacing:-1px}.actions{flex-direction:column;align-items:stretch}.btn{width:100%}.service-grid,.fleet-grid,.steps{grid-template-columns:1fr}section{padding:56px 0}.fleet-card img{height:210px}}
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="container nav">
-      <a class="brand" href="./index.html" aria-label="GREAT EXPERTIZ, accueil">
-        <span class="great">GREAT</span>
-        <span class="expertiz">EXPERTIZ</span>
-        <small>TRANSPORT · LOGISTIQUE · B2B</small>
-      </a>
-
-      <nav class="nav-links" aria-label="Navigation principale">
-        <a class="nav-secondary" href="#services">Nos services</a>
-        <a class="nav-secondary" href="#flotte">Notre flotte</a>
-        <a class="nav-cta" href="./commande.html">Passer une commande</a>
-      </nav>
+<header>
+  <div class="container nav">
+    <a class="brand" href="./index.html" aria-label="GREAT EXPERTIZ home">
+      <span class="great">GREAT</span><span class="expertiz">EXPERTIZ</span>
+      <small>TRANSPORT · LOGISTIQUE · B2B</small>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="nav-secondary" href="#services" data-fr="Nos services" data-en="Our services">Nos services</a>
+      <a class="nav-secondary" href="#flotte" data-fr="Notre flotte" data-en="Our fleet">Notre flotte</a>
+      <a class="nav-cta" href="./commande.html" data-fr="Passer une commande" data-en="Place an order">Passer une commande</a>
+      <button class="lang" id="langToggle" type="button" aria-label="Switch language">EN</button>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container"><div class="hero-content">
+    <span class="eyebrow" data-fr="Votre partenaire logistique B2B" data-en="Your B2B logistics partner">Votre partenaire logistique B2B</span>
+    <h1 data-fr="Le transport professionnel, pensé pour votre activité." data-en="Professional transport, designed for your business.">Le transport professionnel, pensé pour votre activité.</h1>
+    <p data-fr="Des solutions de transport et de logistique pour les entreprises, grossistes, commerçants et professionnels en Côte d’Ivoire." data-en="Transport and logistics solutions for companies, wholesalers, retailers and professionals in Côte d’Ivoire.">Des solutions de transport et de logistique pour les entreprises, grossistes, commerçants et professionnels en Côte d’Ivoire.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="./commande.html"><span data-fr="Passer une commande" data-en="Place an order">Passer une commande</span> →</a>
+      <a class="btn btn-outline" href="./candidature.html" data-fr="Déposer votre candidature" data-en="Apply to join our network">Déposer votre candidature</a>
     </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <span class="eyebrow">Votre partenaire logistique B2B</span>
-          <h1>Le transport professionnel, pensé pour votre activité.</h1>
-          <p>
-            Des solutions de transport et de logistique pour les entreprises,
-            grossistes, commerçants et professionnels en Côte d’Ivoire.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="./commande.html">Passer une commande <span>→</span></a>
-            <a class="btn btn-outline" href="./candidature.html">Déposer votre candidature</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="trust-strip">
-      <div class="container trust-grid">
-        <div class="trust-item">
-          <div class="trust-icon">🚚</div>
-          <div><strong>Transport de marchandises</strong><span>Des solutions adaptées à vos volumes</span></div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">📦</div>
-          <div><strong>Logistique professionnelle</strong><span>Pour les besoins des entreprises</span></div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">📍</div>
-          <div><strong>En Côte d’Ivoire</strong><span>Abidjan et autres destinations selon service</span></div>
-        </div>
-      </div>
-    </div>
-
-    <section class="services" id="services">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Nos solutions</span>
-          <h2>Une logistique qui accompagne votre croissance.</h2>
-          <p>Des prestations destinées aux professionnels qui ont besoin de déplacer, livrer ou organiser leurs marchandises.</p>
-        </div>
-
-        <div class="service-grid">
-          <article class="service-card">
-            <div class="symbol">🚛</div>
-            <h3>Transport B2B</h3>
-            <p>Transport de marchandises pour entreprises, fournisseurs, grossistes et commerçants.</p>
-          </article>
-          <article class="service-card">
-            <div class="symbol">📦</div>
-            <h3>Livraison et distribution</h3>
-            <p>Organisation des livraisons, transferts de marchandises et besoins inter-agences.</p>
-          </article>
-          <article class="service-card">
-            <div class="symbol">🏢</div>
-            <h3>Solutions sur mesure</h3>
-            <p>Des solutions à étudier selon le volume, la destination, les délais et le type de véhicule.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="flotte">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Les véhicules</span>
-          <h2>Le bon gabarit pour chaque marchandise.</h2>
-          <p>Du petit utilitaire au poids lourd, le véhicule doit correspondre au volume et aux caractéristiques du chargement. La disponibilité dépend de la prestation demandée.</p>
-        </div>
-
-        <div class="fleet-grid">
-          <article class="fleet-card">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80" alt="Camion de transport de marchandises sur route">
-            <div class="fleet-info">
-              <h3>Utilitaires et fourgonnettes</h3>
-              <p>Petites marchandises, colis et livraisons professionnelles.</p>
-            </div>
-          </article>
-          <article class="fleet-card">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=80" alt="Camion de transport logistique">
-            <div class="fleet-info">
-              <h3>Camions porteurs</h3>
-              <p>Volumes plus importants et transport de marchandises en quantité.</p>
-            </div>
-          </article>
-          <article class="fleet-card">
-            <img loading="lazy" src="https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=900&q=80" alt="Véhicule de transport de marchandises">
-            <div class="fleet-info">
-              <h3>Poids lourds et remorques</h3>
-              <p>Demandes de grande capacité, à confirmer selon la disponibilité.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="actions" style="justify-content:center; margin-top:30px">
-          <a class="btn btn-primary" href="./commande.html">Décrire mon besoin de transport →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="how">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Comment ça marche</span>
-          <h2>Une demande claire, en quelques étapes.</h2>
-        </div>
-        <div class="steps">
-          <article class="step">
-            <div class="step-num">1</div>
-            <h3>Décrivez votre besoin</h3>
-            <p>Indiquez les lieux de départ et d’arrivée, la marchandise et le volume estimé.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">2</div>
-            <h3>Vérification de la demande</h3>
-            <p>Les informations et la disponibilité doivent être confirmées avant l’organisation du transport.</p>
-          </article>
-          <article class="step">
-            <div class="step-num">3</div>
-            <h3>Organisation du transport</h3>
-            <p>Les modalités de prise en charge sont confirmées selon le service demandé.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container">
-        <div class="cta-panel">
-          <div>
-            <h2>Vous souhaitez rejoindre notre réseau ?</h2>
-            <p>Proposez votre candidature pour collaborer avec GREAT EXPERTIZ.</p>
-          </div>
-          <a class="btn btn-primary" href="./candidature.html">Déposer votre candidature →</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <div>
-        <a class="brand" href="./index.html">
-          <span class="great">GREAT</span>
-          <span class="expertiz">EXPERTIZ</span>
-          <small>TRANSPORT · LOGISTIQUE · B2B</small>
-        </a>
-        <div class="footer-note">© <span id="year"></span> GREAT EXPERTIZ. Tous droits réservés.</div>
-      </div>
-      <nav class="footer-links" aria-label="Liens de pied de page">
-        <a href="./commande.html">Passer une commande</a>
-        <a href="./candidature.html">Candidature</a>
-        <a href="#services">Nos services</a>
-      </nav>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  </div></div>
+</section>
+<div class="trust-strip"><div class="container trust-grid">
+  <div class="trust-item"><div class="trust-icon">🚚</div><div><strong data-fr="Transport de marchandises" data-en="Freight transport">Transport de marchandises</strong><span data-fr="Des solutions adaptées à vos volumes" data-en="Solutions tailored to your cargo volume">Des solutions adaptées à vos volumes</span></div></div>
+  <div class="trust-item"><div class="trust-icon">📦</div><div><strong data-fr="Logistique professionnelle" data-en="Business logistics">Logistique professionnelle</strong><span data-fr="Pour les besoins des entreprises" data-en="For business requirements">Pour les besoins des entreprises</span></div></div>
+  <div class="trust-item"><div class="trust-icon">📍</div><div><strong data-fr="En Côte d’Ivoire" data-en="Across Côte d’Ivoire">En Côte d’Ivoire</strong><span data-fr="Abidjan et autres destinations selon service" data-en="Abidjan and other destinations, depending on service">Abidjan et autres destinations selon service</span></div></div>
+</div></div>
+<section class="services" id="services"><div class="container">
+  <div class="section-head"><span class="eyebrow" data-fr="Nos solutions" data-en="Our solutions">Nos solutions</span><h2 data-fr="Une logistique qui accompagne votre croissance." data-en="Logistics that supports your growth.">Une logistique qui accompagne votre croissance.</h2><p data-fr="Des prestations destinées aux professionnels qui ont besoin de déplacer, livrer ou organiser leurs marchandises." data-en="Services for professionals who need to move, deliver or coordinate their goods.">Des prestations destinées aux professionnels qui ont besoin de déplacer, livrer ou organiser leurs marchandises.</p></div>
+  <div class="service-grid">
+    <article class="service-card"><div class="symbol">🚛</div><h3 data-fr="Transport B2B" data-en="B2B transport">Transport B2B</h3><p data-fr="Transport de marchandises pour entreprises, fournisseurs, grossistes et commerçants." data-en="Freight transport for companies, suppliers, wholesalers and retailers.">Transport de marchandises pour entreprises, fournisseurs, grossistes et commerçants.</p></article>
+    <article class="service-card"><div class="symbol">📦</div><h3 data-fr="Livraison et distribution" data-en="Delivery and distribution">Livraison et distribution</h3><p data-fr="Organisation des livraisons, transferts de marchandises et besoins inter-agences." data-en="Delivery coordination, cargo transfers and inter-branch transport.">Organisation des livraisons, transferts de marchandises et besoins inter-agences.</p></article>
+    <article class="service-card"><div class="symbol">🏢</div><h3 data-fr="Solutions sur mesure" data-en="Tailored solutions">Solutions sur mesure</h3><p data-fr="Des solutions à étudier selon le volume, la destination, les délais et le type de véhicule." data-en="Solutions assessed according to volume, destination, deadlines and vehicle type.">Des solutions à étudier selon le volume, la destination, les délais et le type de véhicule.</p></article>
+  </div>
+</div></section>
+<section id="flotte"><div class="container">
+  <div class="section-head"><span class="eyebrow" data-fr="Les véhicules" data-en="Vehicles">Les véhicules</span><h2 data-fr="Le bon gabarit pour chaque marchandise." data-en="The right vehicle for every shipment.">Le bon gabarit pour chaque marchandise.</h2><p data-fr="Du petit utilitaire au poids lourd, le véhicule doit correspondre au volume et aux caractéristiques du chargement. La disponibilité dépend de la prestation demandée." data-en="From small vans to heavy trucks, the vehicle should match the shipment's volume and characteristics. Availability depends on the requested service.">Du petit utilitaire au poids lourd, le véhicule doit correspondre au volume et aux caractéristiques du chargement. La disponibilité dépend de la prestation demandée.</p></div>
+  <div class="fleet-grid">
+    <article class="fleet-card"><img loading="lazy" src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80" alt="Camion de transport de marchandises"><div class="fleet-info"><h3 data-fr="Utilitaires et fourgonnettes" data-en="Vans and small utility vehicles">Utilitaires et fourgonnettes</h3><p data-fr="Petites marchandises, colis et livraisons professionnelles." data-en="Small freight, parcels and business deliveries.">Petites marchandises, colis et livraisons professionnelles.</p></div></article>
+    <article class="fleet-card"><img loading="lazy" src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=80" alt="Camion de transport logistique"><div class="fleet-info"><h3 data-fr="Camions porteurs" data-en="Rigid trucks">Camions porteurs</h3><p data-fr="Volumes plus importants et transport de marchandises en quantité." data-en="Larger loads and transport of goods in bulk.">Volumes plus importants et transport de marchandises en quantité.</p></div></article>
+    <article class="fleet-card"><img loading="lazy" src="https://images.unsplash.com/photo-1586191582151-f73872dfd183?auto=format&fit=crop&w=900&q=80" alt="Véhicule de transport de marchandises"><div class="fleet-info"><h3 data-fr="Poids lourds et remorques" data-en="Heavy trucks and trailers">Poids lourds et remorques</h3><p data-fr="Demandes de grande capacité, à confirmer selon la disponibilité." data-en="High-capacity shipments, subject to availability confirmation.">Demandes de grande capacité, à confirmer selon la disponibilité.</p></div></article>
+  </div>
+  <div class="actions" style="justify-content:center"><a class="btn btn-primary" href="./commande.html" data-fr="Décrire mon besoin de transport →" data-en="Describe my transport needs →">Décrire mon besoin de transport →</a></div>
+</div></section>
+<section class="how"><div class="container">
+  <div class="section-head"><span class="eyebrow" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</span><h2 data-fr="Une demande claire, en quelques étapes." data-en="A clear request in just a few steps.">Une demande claire, en quelques étapes.</h2></div>
+  <div class="steps">
+    <article class="step"><div class="step-num">1</div><h3 data-fr="Décrivez votre besoin" data-en="Describe your needs">Décrivez votre besoin</h3><p data-fr="Indiquez les lieux de départ et d’arrivée, la marchandise et le volume estimé." data-en="Provide pickup and delivery locations, cargo details and estimated volume.">Indiquez les lieux de départ et d’arrivée, la marchandise et le volume estimé.</p></article>
+    <article class="step"><div class="step-num">2</div><h3 data-fr="Vérification de la demande" data-en="Request review">Vérification de la demande</h3><p data-fr="Les informations et la disponibilité doivent être confirmées avant l’organisation du transport." data-en="Details and availability must be confirmed before transport is arranged.">Les informations et la disponibilité doivent être confirmées avant l’organisation du transport.</p></article>
+    <article class="step"><div class="step-num">3</div><h3 data-fr="Organisation du transport" data-en="Transport coordination">Organisation du transport</h3><p data-fr="Les modalités de prise en charge sont confirmées selon le service demandé." data-en="Pickup and service arrangements are confirmed according to the request.">Les modalités de prise en charge sont confirmées selon le service demandé.</p></article>
+  </div>
+</div></section>
+<section><div class="container"><div class="cta-panel"><div><h2 data-fr="Vous souhaitez rejoindre notre réseau ?" data-en="Would you like to join our network?">Vous souhaitez rejoindre notre réseau ?</h2><p data-fr="Proposez votre candidature pour collaborer avec GREAT EXPERTIZ." data-en="Submit your application to collaborate with GREAT EXPERTIZ.">Proposez votre candidature pour collaborer avec GREAT EXPERTIZ.</p></div><a class="btn btn-primary" href="./candidature.html" data-fr="Déposer votre candidature →" data-en="Apply now →">Déposer votre candidature →</a></div></div></section>
+</main>
+<footer><div class="container footer-inner">
+  <div><a class="brand" href="./index.html"><span class="great">GREAT</span><span class="expertiz">EXPERTIZ</span><small>TRANSPORT · LOGISTIQUE · B2B</small></a><div class="footer-note">© <span id="year"></span> GREAT EXPERTIZ. <span data-fr="Tous droits réservés." data-en="All rights reserved.">Tous droits réservés.</span></div></div>
+  <nav class="footer-links" aria-label="Footer navigation"><a href="./commande.html" data-fr="Passer une commande" data-en="Place an order">Passer une commande</a><a href="./candidature.html" data-fr="Candidature" data-en="Application">Candidature</a><a href="#services" data-fr="Nos services" data-en="Our services">Nos services</a></nav>
+</div></footer>
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const toggle=document.getElementById("langToggle");
+function setLanguage(lang){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-fr][data-en]").forEach(el=>{
+    el.textContent=el.dataset[lang];
+  });
+  toggle.textContent=lang==="fr"?"EN":"FR";
+  toggle.setAttribute("aria-label",lang==="fr"?"Switch to English":"Passer en français");
+  try{localStorage.setItem("ge-next-language",lang)}catch(e){}
+}
+toggle.addEventListener("click",()=>{
+  setLanguage(document.documentElement.lang==="fr"?"en":"fr");
+});
+let initial="fr";
+try{if(localStorage.getItem("ge-next-language")==="en")initial="en"}catch(e){}
+setLanguage(initial);
+</script>
 </body>
- </html>
+</html>
