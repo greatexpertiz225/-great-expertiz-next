@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b46">
+  <title>Passer une commande | GREAT EXPERTIZ</title>
+  <meta name="description" content="Commandez votre transport de marchandises en Côte d’Ivoire avec GREAT EXPERTIZ.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root {
+      --navy: #102b46;
+      --blue: #1769aa;
+      --gold: #f4b63f;
+      --light: #f3f6fa;
+      --text: #203044;
+      --border: #dce3eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--light);
+    }
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { font-weight: 800; letter-spacing: 1px; }
+    .brand span { color: var(--gold); }
+    header a { color: white; text-decoration: none; font-size: 14px; }
+    .hero {
+      padding: 25px 18px;
+      background: linear-gradient(120deg, #102b46, #1b5781);
+      color: white;
+    }
+    .hero h1 { margin: 0 0 9px; font-size: 27px; }
+    .hero p { margin: 0; line-height: 1.5; color: #e1edf7; }
+    main {
+      width: min(1100px, 100%);
+      margin: 22px auto;
+      padding: 0 14px 30px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 20px #102b460c;
+    }
+    h2 { font-size: 19px; margin: 0 0 17px; color: var(--navy); }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin: 14px 0 7px;
+    }
+    input, select, textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      font: inherit;
+      font-size: 15px;
+      color: var(--text);
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #8fc7f2;
+      border-color: var(--blue);
+    }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    button, .button {
+      border: 0;
+      border-radius: 9px;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .primary { background: var(--gold); color: #172b3d; width: 100%; margin-top: 20px; }
+    .secondary { background: var(--blue); color: white; width: 100%; margin-top: 10px; }
+    #map { height: 290px; border-radius: 10px; border: 1px solid var(--border); }
+    .hint { font-size: 12px; line-height: 1.5; color: #617184; }
+    .notice {
+      margin-top: 14px;
+      background: #fff8e8;
+      border: 1px solid #f0d99d;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    #result { display: none; margin-top: 16px; padding: 13px; border-radius: 8px; background: #edf7ef; line-height: 1.5; }
+    footer { text-align: center; padding: 24px 14px; background: var(--navy); color: white; font-size: 13px; }
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 24px; }
+      .panel { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">GREAT <span>EXPERTIZ</span></div>
+  <a href="index.html">← Accueil</a>
+</header>
+
+<section class="hero">
+  <h1>Organisons votre transport.</h1>
+  <p>Transport • Logistique • B2B<br>Vos marchandises, partout en Côte d’Ivoire.</p>
+</section>
+
+<main>
+  <form id="orderForm">
+    <div class="layout">
+      <section class="panel">
+        <h2>1. Votre marchandise</h2>
+
+        <label for="service">Type de prestation *</label>
+        <select id="service" required>
+          <option value="">Choisir une prestation</option>
+          <option>Transport de marchandises</option>
+          <option>Déménagement</option>
+          <option>Livraison professionnelle</option>
+          <option>Transport événementiel / PLV</option>
+          <option>Transfert inter-agences</option>
+        </select>
+
+        <label for="vehicle">Type de véhicule souhaité *</label>
+        <select id="vehicle" required>
+          <option value="">Choisir un véhicule</option>
+          <option value="Petit utilitaire">Petit utilitaire</option>
+          <option value="Fourgonnette">Fourgonnette</option>
+          <option value="Camionnette">Camionnette</option>
+          <option value="Fourgon grand volume">Fourgon grand volume</option>
+          <option value="Camion">Camion</option>
+          <option value="Camion frigorifique">Camion frigorifique</option>
+          <option value="Poids lourd">Poids lourd</option>
+        </select>
+
+        <label for="goods">Description de la marchandise *</label>
+        <textarea id="goods" rows="3" required placeholder="Ex. : cartons, mobilier, palettes…"></textarea>
+
+        <div class="two">
+          <div>
+            <label for="quantity" id="quantityLabel">Volume estimé (CBM) *</label>
+            <input id="quantity" type="number" min="0.1" step="0.1" required placeholder="Ex. : 2">
+          </div>
+          <div>
+            <label for="date">Date souhaitée *</label>
+            <input id="date" type="date" required>
+          </div>
+        </div>
+
+        <h2 style="margin-top:26px">2. Lieux de transport</h2>
+
+        <label for="fromCommune">Commune / ville de départ *</label>
+        <input id="fromCommune" list="towns" required placeholder="Ex. : Cocody">
+        <label for="fromAddress">Quartier, rue, numéro (facultatif)</label>
+        <input id="fromAddress" placeholder="Adresse de chargement">
+
+        <label for="toCommune">Commune / ville d'arrivée *</label>
+        <input id="toCommune" list="towns" required placeholder="Ex. : Yopougon">
+        <label for="toAddress">Quartier, rue, numéro (facultatif)</label>
+        <input id="toAddress" placeholder="Adresse de livraison">
+
+        <datalist id="towns">
+          <option value="Abobo"><option value="Adjamé">
+          <option value="Anyama"><option value="Attécoubé">
+          <option value="Bingerville"><option value="Cocody">
+          <option value="Koumassi"><option value="Marcory">
+          <option value="Plateau"><option value="Port-Bouët">
+          <option value="Treichville"><option value="Songon">
+          <option value="Yopougon"><option value="Grand-Bassam">
+          <option value="Dabou"><option value="Jacqueville">
+          <option value="Bouaké"><option value="Yamoussoukro">
+          <option value="San-Pédro"><option value="Korhogo">
+          <option value="Daloa"><option value="Man">
+          <option value="Gagnoa"><option value="Abengourou">
+        </datalist>
+
+        <button class="secondary" type="button" id="gpsButton">◎ Utiliser ma position GPS</button>
+        <p class="hint" id="gpsStatus">Autorisez la localisation sur votre téléphone si vous souhaitez l'utiliser.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Carte du trajet</h2>
+        <div id="map" aria-label="Carte interactive de Côte d'Ivoire"></div>
+        <p class="hint">Carte indicative. Vérifiez les adresses avant l'expédition. Les distances et durées routières ne sont pas encore calculées par un service d'itinéraire.</p>
+
+        <h2 style="margin-top:25px">3. Vos coordonnées</h2>
+        <label for="customer">Nom et prénom / entreprise *</label>
+        <input id="customer" required autocomplete="name" placeholder="Votre nom ou société">
+
+        <div class="two">
+          <div>
+            <label for="phone">Téléphone *</label>
+            <input id="phone" type="tel" required autocomplete="tel" placeholder="07… / 05… / 01…">
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" type="email" autocomplete="email" placeholder="nom@entreprise.ci">
+          </div>
+        </div>
+
+        <label for="notes">Instructions complémentaires</label>
+        <textarea id="notes" rows="3" placeholder="Accès, étage, contraintes de livraison…"></textarea>
+
+        <div class="notice">
+          <strong>À savoir :</strong> le prix définitif dépend des informations vérifiées et du véhicule disponible. Aucun paiement n'est demandé sur cette page.
+        </div>
+
+        <button class="primary" type="submit">Vérifier ma demande</button>
+        <div id="result" role="status"></div>
+      </section>
+    </div>
+  </form>
+</main>
+
+<footer>
+  <strong>GREAT EXPERTIZ</strong><br>
+  Transport • Logistique • B2B — Côte d’Ivoire
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([5.35, -4.02], 10);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  let gpsMarker;
+  let routeLine;
+
+  document.getElementById('gpsButton').addEventListener('click', () => {
+    const status = document.getElementById('gpsStatus');
+
+    if (!navigator.geolocation) {
+      status.textContent = 'La géolocalisation n’est pas disponible sur ce navigateur.';
+      return;
+    }
+
+    status.textContent = 'Recherche de votre position…';
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        if (gpsMarker) map.removeLayer(gpsMarker);
+
+        gpsMarker = L.marker([lat, lng]).addTo(map)
+          .bindPopup('Votre position actuelle').openPopup();
+
+        map.setView([lat, lng], 15);
+        status.textContent = 'Position obtenue. Elle n’est pas encore enregistrée avec une commande.';
+      },
+      () => {
+        status.textContent = 'Position inaccessible. Vérifiez les autorisations GPS et réessayez.';
+      },
+      { enableHighAccuracy: true, timeout: 12000 }
+    );
+  });
+
+  document.getElementById('vehicle').addEventListener('change', event => {
+    const heavy = ['Camion', 'Camion frigorifique', 'Poids lourd'].includes(event.target.value);
+    const label = document.getElementById('quantityLabel');
+    const input = document.getElementById('quantity');
+
+    label.textContent = heavy ? 'Poids estimé (tonnes) *' : 'Volume estimé (CBM) *';
+    input.placeholder = heavy ? 'Ex. : 5 tonnes' : 'Ex. : 2 CBM';
+  });
+
+  document.getElementById('orderForm').addEventListener('submit', event => {
+    event.preventDefault();
+
+    const data = {
+      prestation: document.getElementById('service').value,
+      vehicule: document.getElementById('vehicle').value,
+      marchandise: document.getElementById('goods').value.trim(),
+      quantite: document.getElementById('quantity').value,
+      date: document.getElementById('date').value,
+      depart: document.getElementById('fromCommune').value.trim(),
+      adresseDepart: document.getElementById('fromAddress').value.trim(),
+      arrivee: document.getElementById('toCommune').value.trim(),
+      adresseArrivee: document.getElementById('toAddress').value.trim(),
+      client: document.getElementById('customer').value.trim(),
+      telephone: document.getElementById('phone').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      instructions: document.getElementById('notes').value.trim()
+    };
+
+    const result = document.getElementById('result');
+    result.style.display = 'block';
+    result.textContent =
+      'Vérification du formulaire réussie. Aucune commande n’a encore été enregistrée. ' +
+      'Le serveur GREAT EXPERTIZ doit être connecté avant de pouvoir générer un code de commande, un QR code définitif ou un reçu.';
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+</script>
+</body>
+  </html>
+  
