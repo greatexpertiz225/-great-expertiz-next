@@ -4,333 +4,385 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#78833b">
 <title>Commande | GREAT EXPERTIZ</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{--g:#78833b;--gd:#53642a;--b:#287da9;--ink:#26333b;--muted:#687780;--line:#dce4e7;--bg:#f5f7f7}
+:root{--navy:#09223c;--blue:#1467a8;--gold:#f2b544;--line:#dce5ee}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px Arial,sans-serif}
-header{background:white;padding:18px 5%;border-bottom:1px solid var(--line)}
-.brand{font-size:23px;font-weight:900;color:var(--g)}
-.brand span{color:var(--b)}
-header small{display:block;margin-top:5px;letter-spacing:2px}
-.hero{padding:22px 5%;background:linear-gradient(120deg,#eaf0df,#edf5f9)}
-main{max-width:1100px;margin:20px auto;padding:0 14px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.card{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
-h2{font-size:20px;margin:0 0 14px}
-h3{font-size:16px;margin:20px 0 10px}
-label{display:block;font-weight:700;font-size:13px;margin:12px 0 6px}
-input,select,textarea,button{font:inherit}
-input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5d9;border-radius:8px;background:#fff;color:var(--ink)}
-textarea{min-height:76px;resize:vertical}
-button{border:0;border-radius:8px;padding:11px 14px;background:var(--g);color:white;font-weight:700;cursor:pointer}
-button.secondary{background:#e8f1d8;color:var(--gd)}
-button:disabled{opacity:.5}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+body{margin:0;background:#f3f6f9;color:#18283a;font:15px/1.5 Arial,sans-serif}
+header{background:var(--navy);color:white;padding:17px 5%;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-size:18px;font-weight:bold;letter-spacing:1px}
+header a{color:white}
+.hero{max-width:1200px;margin:24px auto;padding:0 16px}
+.hero h1{color:var(--navy);font-size:clamp(27px,4vw,40px);margin:8px 0}
+.hero p{color:#64748b}
+.layout{max-width:1200px;margin:auto;padding:0 16px 30px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.card{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 5px 20px #09223c0d}
+.cardhead{padding:16px;border-bottom:1px solid var(--line)}
+.cardhead h2{margin:0;color:var(--navy);font-size:20px}
+#map{height:440px;width:100%;background:#e5edf3}
+.maptools{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 13px;font-weight:bold}
+.primary{background:var(--gold);color:#17283b}
+.secondary{background:#eaf2f9;color:var(--navy)}
+.formbody{padding:18px}
+h3{font-size:14px;text-transform:uppercase;color:var(--navy);margin:8px 0 13px}
+.field{margin-bottom:12px}
+label{display:block;font-size:12px;font-weight:bold;color:#42566c;margin-bottom:5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd7e2;border-radius:8px;background:white;font:inherit}
+textarea{min-height:70px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-#map{height:330px;border-radius:10px;border:1px solid var(--line);margin-top:12px}
-.muted,.hint{font-size:12px;color:var(--muted);line-height:1.5}
-.notice{background:#eef5e7;border-left:4px solid var(--g);padding:12px;border-radius:6px;line-height:1.5}
-.item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
-.item.selected{background:#e8f1d8;border-color:var(--g)}
-.item button{padding:7px 10px;flex-shrink:0}
-.total{background:#f4f7ed;padding:14px;border-radius:10px;margin-top:12px}
-.total strong{font-size:22px;color:var(--gd)}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
-#status{padding:10px;background:#f5f7f7;border-radius:8px;white-space:pre-wrap}
-@media(max-width:760px){main{grid-template-columns:1fr}.grid2{grid-template-columns:1fr 1fr}#map{height:290px}}
+.vehicle{display:flex;flex-wrap:wrap;gap:7px}
+.vehicle button{background:#edf3f8;border:1px solid #d2dee8;font-size:12px}
+.vehicle button.active{background:#dceefa;border-color:var(--blue);color:var(--blue)}
+.summary{background:#f7fafc;border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
+.line{display:flex;justify-content:space-between;gap:10px;padding:4px 0;font-size:13px}
+.total{border-top:1px solid var(--line);margin-top:6px;padding-top:10px;font-size:17px;font-weight:bold}
+.hint{font-size:12px;color:#64748b}
+.notice{background:#fff5dc;border:1px solid #f2d18b;padding:10px;border-radius:8px;font-size:12px;margin:10px 0}
+#qrBox,#receipt{display:none;text-align:center;border:1px dashed #a8bac9;padding:13px;border-radius:10px;margin:12px 0}
+#qrBox img,#receipt img{width:140px;height:140px}
+#status{padding:12px;border-radius:8px;margin:10px 0;display:none}
+.ok{background:#e8f7f0;color:#075b40}
+.err{background:#fff0ee;color:#9a2e21}
+.submit{width:100%;font-size:16px;padding:14px}
+footer{padding:20px;text-align:center;font-size:12px;color:#64748b}
+@media(max-width:820px){.layout{grid-template-columns:1fr}#map{height:330px}.grid2{grid-template-columns:1fr}.hero{margin-top:16px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">GREAT <span>EXPERTIZ</span></div>
-  <small>TRANSPORT · LOGISTIQUE · B2B</small>
+  <div class="brand">GREAT EXPERTIZ<br><small>TRANSPORT · LOGISTIQUE · B2B</small></div>
+  <a href="./index.html">Retour à l’accueil</a>
 </header>
+
 <section class="hero">
-  <h1>Organisez votre transport</h1>
-  <p>Renseignez votre trajet et vos marchandises pour obtenir une estimation indicative.</p>
+  <div style="color:#1467a8;font-weight:bold;font-size:12px;letter-spacing:2px">VOTRE TRANSPORT, SIMPLIFIÉ</div>
+  <h1>Organisons votre livraison.</h1>
+  <p>Choisissez les lieux sur la carte, renseignez votre marchandise et envoyez votre demande de transport en Côte d’Ivoire.</p>
 </section>
 
-<main>
+<main class="layout">
 <section class="card">
-<h2>1. Départ et arrivée</h2>
-<label for="from">Adresse de départ *</label>
-<input id="from" placeholder="Commune, quartier, rue…">
-<div class="actions">
-<button type="button" onclick="useGPS('from')">GPS départ</button>
-<button class="secondary" type="button" onclick="searchAddress('from')">Localiser</button>
+  <div class="cardhead">
+    <h2>Votre itinéraire</h2>
+    <div class="hint" id="routeLabel">Choisissez les points d’enlèvement et de livraison.</div>
+    <strong id="distanceLabel">Distance : non calculée</strong>
+  </div>
+  <div id="map"></div>
+  <div class="maptools">
+    <button class="secondary" type="button" id="gpsBtn">◎ Ma position GPS</button>
+    <button class="secondary" type="button" id="pickStart">Choisir l’enlèvement</button>
+    <button class="secondary" type="button" id="pickEnd">Choisir la livraison</button>
+  </div>
+  <div class="hint" style="padding:0 14px 14px">Carte © OpenStreetMap. La géolocalisation nécessite votre autorisation.</div>
+</section>
+
+<section class="card">
+<div class="cardhead">
+  <h2>Nouvelle commande</h2>
+  <div class="hint">Les champs marqués * sont obligatoires.</div>
 </div>
-<label for="to">Adresse d’arrivée *</label>
-<input id="to" placeholder="Commune, quartier, rue…">
-<div class="actions">
-<button type="button" onclick="useGPS('to')">GPS arrivée</button>
-<button class="secondary" type="button" onclick="searchAddress('to')">Localiser</button>
-<button class="secondary" type="button" onclick="route()">Calculer le trajet</button>
-</div>
-<div id="map" aria-label="Carte interactive du trajet"></div>
-<p class="muted">Déplacez la carte et touchez-la pour choisir une position. Le GPS nécessite une autorisation et une connexion compatible.</p>
+<div class="formbody">
+<form id="orderForm">
+<h3>1. Itinéraire</h3>
+<div class="field"><label for="pickup">Adresse d’enlèvement *</label><input id="pickup" required placeholder="Ex. Cocody Angré, Abidjan"></div>
 <div class="grid2">
-<div><label>Distance routière</label><input id="distance" readonly value="À calculer"></div>
-<div><label>Durée estimée</label><input id="duration" readonly value="À calculer"></div>
+  <div class="field"><label for="pickupCommune">Commune / ville *</label><input id="pickupCommune" required placeholder="Ex. Cocody"></div>
+  <div class="field"><label for="pickupExtra">Quartier, rue, numéro</label><input id="pickupExtra" placeholder="Complément facultatif"></div>
 </div>
+<div class="field"><label for="dropoff">Adresse de livraison *</label><input id="dropoff" required placeholder="Ex. Zone 4, Marcory, Abidjan"></div>
+<div class="grid2">
+  <div class="field"><label for="dropoffCommune">Commune / ville *</label><input id="dropoffCommune" required placeholder="Ex. Marcory"></div>
+  <div class="field"><label for="dropoffExtra">Quartier, rue, numéro</label><input id="dropoffExtra" placeholder="Complément facultatif"></div>
+</div>
+<button type="button" class="secondary" id="routeBtn">Calculer le trajet</button>
+<div class="hint" id="routeStatus" aria-live="polite"></div>
 
 <h3>2. Prestation et véhicule</h3>
-<label for="service">Type de prestation</label>
-<select id="service">
+<div class="field"><label for="service">Type de prestation *</label>
+<select id="service" required>
 <option>Transport de marchandises</option>
+<option>Livraison urgente</option>
 <option>Déménagement</option>
-<option>Livraison B2B</option>
-<option>Transport événementiel / PLV</option>
-<option>Transport urgent</option>
+<option>Transport frigorifique</option>
+<option>Transport B2B / inter-agences</option>
 <option>Autre prestation</option>
-</select>
-<label for="vehicle">Catégorie de véhicule</label>
-<select id="vehicle">
-<option value="utilitaire">Utilitaire / fourgonnette</option>
-<option value="camionnette">Camionnette</option>
-<option value="camion">Camion / poids lourd — devis à confirmer</option>
-<option value="frigo">Camion frigorifique — devis à confirmer</option>
-<option value="semi">Semi-remorque — devis à confirmer</option>
-</select>
-<div class="grid2">
-<div><label for="floors">Étage à desservir</label>
-<select id="floors"><option value="0">Rez-de-chaussée</option><option value="1">1er étage</option><option value="2">2e étage</option><option value="3">3e étage</option><option value="4">4e étage ou plus</option></select></div>
-<div><label for="handlers">Manutentionnaires supplémentaires</label>
-<input id="handlers" type="number" min="0" max="20" value="0"></div>
+</select></div>
+<div class="field"><label>Véhicule souhaité</label>
+<div class="vehicle" id="vehicleOptions">
+<button type="button" class="active" data-vehicle="À déterminer">À déterminer</button>
+<button type="button" data-vehicle="Fourgonnette">Fourgonnette</button>
+<button type="button" data-vehicle="Camionnette">Camionnette</button>
+<button type="button" data-vehicle="Camion / poids lourd">Poids lourd</button>
+<button type="button" data-vehicle="Frigorifique">Frigorifique</button>
+<button type="button" data-vehicle="Semi-remorque">Semi-remorque</button>
 </div>
-</section>
+<input type="hidden" id="vehicle" value="À déterminer">
+</div>
+<div class="field"><label for="date">Date souhaitée</label><input id="date" type="date"></div>
 
-<section class="card">
-<h2>3. Marchandises</h2>
-<p class="muted">Touchez Ajouter pour sélectionner un article. Réutilisez le bouton pour augmenter sa quantité.</p>
-<label for="category">Catégorie</label>
-<select id="category" onchange="showItems()">
-<option value="Mobilier">Mobilier</option>
-<option value="Électroménager">Électroménager</option>
-<option value="Cartons et effets personnels">Cartons et effets personnels</option>
-<option value="Informatique et bureau">Informatique et bureau</option>
-<option value="Commerce et marchandises">Commerce et marchandises</option>
-<option value="Événementiel">Événementiel</option>
-<option value="Autres">Autres articles</option>
-</select>
-<div id="items"></div>
-<h3>Article personnalisé</h3>
-<label for="customName">Description</label>
-<input id="customName" placeholder="Nom ou description de l’article">
+<h3>3. Marchandise</h3>
 <div class="grid2">
-<div><label for="customQty">Quantité</label><input id="customQty" type="number" min="1" value="1"></div>
-<div><label for="customCbm">Volume unitaire estimé (CBM)</label><input id="customCbm" type="number" min="0" step="0.01" value="0"></div>
+<div class="field"><label for="category">Catégorie</label>
+<select id="category">
+<option>Cartons / colis</option><option>Palettes / marchandises B2B</option>
+<option>Mobilier / déménagement</option><option>Équipements / PLV</option>
+<option>Produits alimentaires</option><option>Autre</option>
+</select></div>
+<div class="field"><label for="cbm">Volume estimé (m³ / CBM) *</label>
+<select id="cbm" required>
+<option value="1">Jusqu’à 1 m³</option><option value="2">2 m³</option>
+<option value="3">3 m³</option><option value="4">4 m³</option>
+<option value="5">5 m³</option><option value="6">6 m³</option>
+<option value="7">7 m³</option><option value="8">8 m³</option>
+<option value="9">9 m³</option><option value="10">10 m³</option>
+<option value="11">Plus de 10 m³</option>
+</select></div>
 </div>
-<button type="button" class="secondary" onclick="addCustom()">Ajouter l’article personnalisé</button>
-<div id="selected"></div>
-
-<h3>4. Protection et emballages</h3>
-<div class="notice"><strong>Protection standard incluse dans le transport :</strong> précautions normales de manutention, arrimage adapté et couvertures/protections réutilisables. Aucun supplément distinct pour cette protection standard.</div>
-<label for="packingLevel">Protection souhaitée</label>
-<select id="packingLevel" onchange="updateTotal()">
-<option value="standard">Protection standard incluse</option>
-<option value="extra">Emballages supplémentaires à la charge du client</option>
-<option value="reinforced">Protection renforcée / emballage complet — sur devis</option>
-</select>
-<p class="hint">Les emballages supplémentaires sont calculés selon les matériaux réellement utilisés, les quantités et les coûts confirmés. Vous pouvez fournir vos propres emballages adaptés.</p>
+<div class="field"><label for="details">Description de la marchandise</label><textarea id="details" placeholder="Quantité, poids, dimensions, précautions…"></textarea></div>
 <div class="grid2">
-<div><label for="cartonsQty">Cartons — quantité</label><input id="cartonsQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="cartonsCost">Coût total cartons (FCFA)</label><input id="cartonsCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="bubbleQty">Papier bulle — quantité</label><input id="bubbleQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="bubbleCost">Coût total papier bulle (FCFA)</label><input id="bubbleCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="stretchQty">Film étirable — quantité</label><input id="stretchQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="stretchCost">Coût total film étirable (FCFA)</label><input id="stretchCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="tapeQty">Ruban adhésif — quantité</label><input id="tapeQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="tapeCost">Coût total rubans (FCFA)</label><input id="tapeCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="coversQty">Housses jetables — quantité</label><input id="coversQty" type="number" min="0" value="0" oninput="updateTotal()"></div>
-<div><label for="coversCost">Coût total housses (FCFA)</label><input id="coversCost" type="number" min="0" value="0" oninput="updateTotal()"></div>
+<div class="field"><label for="floors">Étages à porter</label><select id="floors"><option value="0">Aucun</option><option value="1">1 étage</option><option value="2">2 étages</option><option value="3">3 étages ou plus</option></select></div>
+<div class="field"><label for="helpers">Manutentionnaires supplémentaires</label><select id="helpers"><option value="0">Aucun</option><option value="1">1 personne</option><option value="2">2 personnes</option><option value="3">3 personnes</option></select></div>
 </div>
-<label for="otherPacking">Autres matériaux ou emballages fournis par le client</label>
-<textarea id="otherPacking" placeholder="Précisions, quantités et coûts à confirmer"></textarea>
 
-<h3>5. Coordonnées</h3>
+<h3>4. Contact client</h3>
+<div class="field"><label for="name">Nom / entreprise *</label><input id="name" required autocomplete="name" placeholder="Votre nom ou société"></div>
 <div class="grid2">
-<div><label for="customer">Nom / entreprise *</label><input id="customer" required></div>
-<div><label for="phone">Téléphone *</label><input id="phone" type="tel" required></div>
+<div class="field"><label for="phone">Téléphone *</label><input id="phone" required type="tel" autocomplete="tel" placeholder="+225 07…"></div>
+<div class="field"><label for="recipientPhone">Téléphone du destinataire</label><input id="recipientPhone" type="tel" placeholder="+225…"></div>
 </div>
-<label for="email">E-mail</label><input id="email" type="email">
-<label for="date">Date souhaitée</label><input id="date" type="date">
-<label for="notes">Instructions complémentaires</label><textarea id="notes" placeholder="Précisions sur la marchandise, les accès, les horaires…"></textarea>
+<div class="field"><label for="email">E-mail (facultatif)</label><input id="email" type="email" placeholder="nom@entreprise.ci"></div>
+<div class="field"><label for="notes">Instructions complémentaires</label><textarea id="notes" placeholder="Accès, horaires, emballage, paiement souhaité…"></textarea></div>
 
-<div class="total">
-<div>Volume total estimé</div><strong id="volumeOut">0 CBM</strong>
-<p>Volume facturable arrondi au palier supérieur : <b id="billableOut">0 CBM</b></p>
-<hr>
-<div>Transport estimé</div><strong id="transportOut">20 000 FCFA</strong>
-<p>Emballages supplémentaires : <b id="packingOut">0 FCFA</b></p>
-<p>Total indicatif : <b id="grandOut">20 000 FCFA</b></p>
-<p class="muted">Tarif de base jusqu’à 2 CBM : 20 000 FCFA. Au-delà, supplément de 10 000 FCFA par CBM facturable supplémentaire. Kilométrage estimé à 200 FCFA/km ; étage et manutention supplémentaires à confirmer. Les poids lourds, la protection renforcée et les trajets incomplets nécessitent une confirmation.</p>
+<h3>5. Vérification et estimation</h3>
+<div class="summary">
+<div class="line"><span>Base jusqu’à 2 m³</span><strong id="basePrice">20 000 FCFA</strong></div>
+<div class="line"><span>Volume supplémentaire</span><strong id="volumePrice">0 FCFA</strong></div>
+<div class="line"><span>Distance</span><strong id="distancePrice">À calculer</strong></div>
+<div class="line"><span>Étages et manutention</span><strong id="extraPrice">0 FCFA</strong></div>
+<div class="line total"><span>Estimation</span><strong id="totalPrice">20 000 FCFA</strong></div>
+<div class="hint" id="estimateNote">Estimation indicative, sous réserve de confirmation.</div>
 </div>
-<button type="button" style="width:100%;margin-top:14px" onclick="submitOrder()">Envoyer la demande</button>
-<p id="status" role="status">Aucune demande envoyée.</p>
+<div class="notice" id="quoteNotice" style="display:none">Plus de 10 m³ ou véhicule spécialisé : devis spécifique requis.</div>
+<button class="secondary" type="button" id="verifyBtn">Vérifier et générer le QR</button>
+<div id="qrBox">
+<strong id="orderCode"></strong>
+<p class="hint">QR provisoire : la demande n’est pas encore enregistrée.</p>
+<img id="qrImage" alt="QR provisoire">
+</div>
+<div id="status" role="status" aria-live="polite"></div>
+<button class="primary submit" id="submitBtn" type="submit">Envoyer la demande</button>
+<div id="receipt">
+<h3>Demande enregistrée</h3>
+<p id="receiptText"></p>
+<img id="finalQr" alt="QR de la commande enregistrée">
+<p class="hint">Conservez ce code pour le suivi de votre demande.</p>
+</div>
+</form>
+</div>
 </section>
 </main>
-<footer>GREAT EXPERTIZ — Transport · Logistique · B2B</footer>
+<footer>GREAT EXPERTIZ · Transport, logistique et solutions B2B en Côte d’Ivoire.</footer>
+<iframe name="geOrderFrame" id="geOrderFrame" title="Réponse du serveur" style="display:none"></iframe>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-"use strict";
+(() => {
+'use strict';
 
-/* Conserver l'URL Apps Script existante du projet. */
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbz5PeGwyPxuY2o2A2RdHGvVp37zoRtS_QmohhRg5jw7QxvHsuRNVqTtX3dqcqtjy48hnA/exec";
-const fmt=n=>Math.round(n).toLocaleString("fr-FR")+" FCFA";
-const catalog={
-"Mobilier":[["Canapé",1.5],["Fauteuil",0.6],["Table",0.8],["Chaise",0.15],["Armoire",1.2],["Lit démonté",1.2],["Matelas",0.6]],
-"Électroménager":[["Réfrigérateur",0.8],["Congélateur",0.7],["Lave-linge",0.5],["Cuisinière",0.4],["Téléviseur",0.15]],
-"Cartons et effets personnels":[["Petit carton",0.06],["Carton moyen",0.1],["Grand carton",0.15],["Valise",0.12],["Sac",0.08]],
-"Informatique et bureau":[["Ordinateur",0.08],["Imprimante",0.15],["Bureau",0.7],["Fauteuil de bureau",0.35],["Étagère",0.4]],
-"Commerce et marchandises":[["Carton de marchandises",0.12],["Palette de marchandises",1.2],["Sac de marchandises",0.08],["Présentoir",0.5]],
-"Événementiel":[["Table pliante",0.3],["Chaise empilable",0.08],["Structure démontée",0.7],["Matériel audiovisuel",0.25]],
-"Autres":[["Objet divers",0.2]]
-};
-let goods=[],fromPoint=null,toPoint=null,markers={},routeLayer=null;
-const map=L.map("map").setView([5.35,-4.02],11);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
-map.on("click",e=>{
- const choice=prompt("Choisir le point à définir : départ ou arrivée ?","départ");
- if(!choice)return;
- if(choice.toLowerCase().startsWith("d"))setPoint("from",e.latlng.lat,e.latlng.lng,"Position choisie sur la carte");
- else setPoint("to",e.latlng.lat,e.latlng.lng,"Position choisie sur la carte");
-});
-function setPoint(which,lat,lon,label){
- const point={lat,lon};
- if(which==="from")fromPoint=point;else toPoint=point;
- document.getElementById(which).value=label+" ("+lat.toFixed(5)+", "+lon.toFixed(5)+")";
- if(markers[which])map.removeLayer(markers[which]);
- markers[which]=L.marker([lat,lon]).addTo(map).bindPopup(which==="from"?"Départ":"Arrivée");
- map.setView([lat,lon],13);
+/* URL du déploiement Apps Script actuellement communiqué */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzsKqjuaMp3A7h3ptT8lx2620W8KO0B73A00LoNple5Uq4XBdi4i5xS57SacvheV367yQ/exec';
+
+const $ = id => document.getElementById(id);
+let map=null,startMarker=null,endMarker=null,routeLayer=null;
+let startCoords=null,endCoords=null,distanceKm=null,pickMode=null;
+let requestCode=null,awaitingResponse=false;
+
+const money = n => Math.round(n).toLocaleString('fr-FR')+' FCFA';
+const makeCode = () => 'GE-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
+
+function initMap(){
+ if(!window.L){$('routeStatus').textContent='Carte indisponible. Vérifiez votre connexion Internet.';return}
+ map=L.map('map').setView([5.3599,-4.0083],11);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom:19,attribution:'© OpenStreetMap'
+ }).addTo(map);
+ map.on('click',e=>{
+  if(!pickMode){$('routeStatus').textContent='Choisissez d’abord un bouton enlèvement ou livraison.';return}
+  setPoint(pickMode,[e.latlng.lat,e.latlng.lng],true);
+  pickMode=null;
+ });
 }
-function useGPS(which){
- if(!navigator.geolocation){alert("La géolocalisation n’est pas disponible sur cet appareil.");return;}
- navigator.geolocation.getCurrentPosition(pos=>{
- setPoint(which,pos.coords.latitude,pos.coords.longitude,"Position GPS");
- if(fromPoint&&toPoint)route();
- },err=>alert("Position GPS impossible. Vérifiez l’autorisation et le signal GPS."),{enableHighAccuracy:true,timeout:15000,maximumAge:30000});
+
+function setPoint(which,coords,reverse){
+ const label=which==='start'?'Enlèvement':'Livraison';
+ if(which==='start'){
+  startCoords=coords;
+  if(startMarker)map.removeLayer(startMarker);
+  startMarker=L.marker(coords).addTo(map).bindPopup(label).openPopup();
+ }else{
+  endCoords=coords;
+  if(endMarker)map.removeLayer(endMarker);
+  endMarker=L.marker(coords).addTo(map).bindPopup(label).openPopup();
+ }
+ map.setView(coords,Math.max(map.getZoom(),13));
+ if(reverse)reverseGeocode(coords,which);
+ if(startCoords&&endCoords)calculateRoute();
 }
-async function searchAddress(which){
- const q=document.getElementById(which).value.trim();
- if(!q){alert("Saisissez une commune ou une adresse.");return;}
+
+async function reverseGeocode(coords,which){
  try{
-  const url="https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=ci&q="+encodeURIComponent(q);
-  const res=await fetch(url);const data=await res.json();
-  if(!data.length)throw Error("Adresse non trouvée");
-  setPoint(which,+data[0].lat,+data[0].lon,data[0].display_name);
-  if(fromPoint&&toPoint)route();
- }catch(e){alert("Adresse introuvable ou service indisponible. Vous pouvez sélectionner le point sur la carte.");}
+  const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+coords[0]+'&lon='+coords[1]+'&accept-language=fr');
+  if(!r.ok)throw new Error();
+  const d=await r.json(),a=d.address||{};
+  if(which==='start'){
+   $('pickup').value=d.display_name||coords.join(',');
+   $('pickupCommune').value=a.city||a.town||a.suburb||a.county||'';
+  }else{
+   $('dropoff').value=d.display_name||coords.join(',');
+   $('dropoffCommune').value=a.city||a.town||a.suburb||a.county||'';
+  }
+ }catch(e){
+  $('routeStatus').textContent='Point sélectionné. Complétez la commune si nécessaire.';
+ }
 }
-async function route(){
- if(!fromPoint||!toPoint){alert("Définissez le départ et l’arrivée avec le GPS, la recherche d’adresse ou la carte.");return;}
+
+async function geocode(q){
+ const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=ci&q='+encodeURIComponent(q+', Côte d’Ivoire');
+ const r=await fetch(url);
+ if(!r.ok)throw new Error('Recherche d’adresse indisponible.');
+ const d=await r.json();
+ if(!d.length)throw new Error('Adresse introuvable. Ajoutez la commune et le quartier.');
+ return [+d[0].lat,+d[0].lon];
+}
+
+async function calculateRoute(){
+ if(!startCoords||!endCoords)return;
+ $('routeStatus').textContent='Calcul du trajet en cours…';
  try{
-  const url=`https://router.project-osrm.org/route/v1/driving/${fromPoint.lon},${fromPoint.lat};${toPoint.lon},${toPoint.lat}?overview=full&geometries=geojson`;
-  const res=await fetch(url);const data=await res.json();
-  if(!data.routes||!data.routes.length)throw Error("Itinéraire indisponible");
-  const r=data.routes[0];
-  document.getElementById("distance").value=(r.distance/1000).toFixed(1)+" km";
-  document.getElementById("duration").value=Math.round(r.duration/60)+" min";
+  const url='https://router.project-osrm.org/route/v1/driving/'+startCoords[1]+','+startCoords[0]+';'+endCoords[1]+','+endCoords[0]+'?overview=full&geometries=geojson';
+  const r=await fetch(url);
+  if(!r.ok)throw new Error();
+  const d=await r.json();
+  if(d.code!=='Ok'||!d.routes.length)throw new Error();
+  const rt=d.routes[0];distanceKm=rt.distance/1000;
   if(routeLayer)map.removeLayer(routeLayer);
-  routeLayer=L.geoJSON({type:"Feature",geometry:r.geometry},{style:{color:"#287da9",weight:5}}).addTo(map);
-  map.fitBounds(routeLayer.getBounds(),{padding:[20,20]});updateTotal();
- }catch(e){document.getElementById("distance").value="Indisponible";document.getElementById("duration").value="Indisponible";alert("Calcul d’itinéraire indisponible. Vérifiez la connexion et réessayez.");}
+  routeLayer=L.geoJSON({type:'Feature',geometry:rt.geometry},{style:{color:'#1467a8',weight:5}}).addTo(map);
+  map.fitBounds(routeLayer.getBounds().pad(.15));
+  $('distanceLabel').textContent='Distance : '+distanceKm.toFixed(1).replace('.',',')+' km';
+  $('routeLabel').textContent='Durée indicative : '+Math.round(rt.duration/60)+' minutes, hors trafic';
+  $('routeStatus').textContent='Trajet calculé à partir des données cartographiques.';
+ }catch(e){
+  distanceKm=null;
+  $('distanceLabel').textContent='Distance : indisponible';
+  $('routeLabel').textContent='Les deux points sont sélectionnés.';
+  $('routeStatus').textContent='Le calcul est indisponible. Le prix sera confirmé par l’équipe.';
+ }
+ updatePrice();
 }
-function showItems(){
- const box=document.getElementById("items");box.innerHTML="";
- (catalog[document.getElementById("category").value]||[]).forEach(([name,cbm])=>{
-  const div=document.createElement("div");div.className="item";
-  const text=document.createElement("span");text.textContent=name+" — "+cbm+" CBM/unité";
-  const btn=document.createElement("button");btn.type="button";btn.textContent="Ajouter";
-  btn.onclick=()=>addGood(name,cbm);
-  div.append(text,btn);box.appendChild(div);
- });
-}
-function addGood(name,cbm){
- const existing=goods.find(g=>g.name===name);
- if(existing)existing.qty++;else goods.push({name,cbm,qty:1});
- renderGoods();
-}
-function addCustom(){
- const name=document.getElementById("customName").value.trim();
- const qty=Math.max(1,parseInt(document.getElementById("customQty").value,10)||1);
- const cbm=Math.max(0,Number(document.getElementById("customCbm").value)||0);
- if(!name||cbm<=0){alert("Indiquez une description et un volume unitaire supérieur à zéro.");return;}
- goods.push({name,cbm,qty});renderGoods();
- document.getElementById("customName").value="";
-}
-function renderGoods(){
- const box=document.getElementById("selected");box.innerHTML="<h3>Articles sélectionnés</h3>";
- if(!goods.length){box.innerHTML+="<p class='muted'>Aucun article sélectionné.</p>";updateTotal();return;}
- goods.forEach((g,i)=>{
-  const row=document.createElement("div");row.className="item selected";
-  const text=document.createElement("span");text.textContent=`${g.name} — ${g.qty} × ${g.cbm} CBM`;
-  const controls=document.createElement("div");
-  const minus=document.createElement("button");minus.type="button";minus.textContent="−";minus.className="secondary";
-  minus.onclick=()=>{g.qty--;if(g.qty<=0)goods.splice(i,1);renderGoods();};
-  const plus=document.createElement("button");plus.type="button";plus.textContent="+";plus.style.marginLeft="4px";
-  plus.onclick=()=>{g.qty++;renderGoods();};
-  controls.append(minus,plus);row.append(text,controls);box.append(row);
- });
- updateTotal();
-}
-function getVolume(){return goods.reduce((s,g)=>s+g.cbm*g.qty,0);}
-function getPackingCost(){
- return ["cartonsCost","bubbleCost","stretchCost","tapeCost","coversCost"]
- .reduce((s,id)=>s+Math.max(0,Number(document.getElementById(id).value)||0),0);
-}
-function updateTotal(){
- const volume=getVolume(),billable=Math.ceil(volume);
- document.getElementById("volumeOut").textContent=volume.toFixed(2)+" CBM";
- document.getElementById("billableOut").textContent=billable+" CBM";
- let transport=billable<=2?20000:20000+Math.max(0,billable-2)*10000;
- let km=parseFloat(document.getElementById("distance").value);
- if(Number.isFinite(km))transport+=km*200;
- const floors=Number(document.getElementById("floors").value)||0;
- const handlers=Number(document.getElementById("handlers").value)||0;
- if(floors>1)transport+=(floors-1)*5000;
- transport+=handlers*5000;
- const special=["camion","frigo","semi"].includes(document.getElementById("vehicle").value);
- const packing=getPackingCost();
- document.getElementById("transportOut").textContent=special?"À confirmer":fmt(transport);
- document.getElementById("packingOut").textContent=fmt(packing);
- document.getElementById("grandOut").textContent=special?"À confirmer":fmt(transport+packing);
-}
-["floors","handlers","vehicle"].forEach(id=>document.getElementById(id).addEventListener("change",updateTotal));
-showItems();renderGoods();updateTotal();
 
-function getPackingSummary(){
- const labels=[
- ["Cartons","cartonsQty","cartonsCost"],["Papier bulle","bubbleQty","bubbleCost"],
- ["Film étirable","stretchQty","stretchCost"],["Ruban adhésif","tapeQty","tapeCost"],
- ["Housses jetables","coversQty","coversCost"]
- ];
- return labels.map(([name,q,c])=>`${name}: quantité ${document.getElementById(q).value||0}, coût saisi ${document.getElementById(c).value||0} FCFA`).join(" | ")
- +" | Autres: "+document.getElementById("otherPacking").value
- +" | Niveau: "+document.getElementById("packingLevel").value
- +" | Protection standard incluse";
+$('pickStart').addEventListener('click',()=>{pickMode='start';$('routeStatus').textContent='Touchez la carte pour placer l’enlèvement.'});
+$('pickEnd').addEventListener('click',()=>{pickMode='end';$('routeStatus').textContent='Touchez la carte pour placer la livraison.'});
+
+$('gpsBtn').addEventListener('click',()=>{
+ if(!navigator.geolocation){$('routeStatus').textContent='GPS non pris en charge par ce navigateur.';return}
+ $('routeStatus').textContent='Recherche de votre position…';
+ navigator.geolocation.getCurrentPosition(p=>{
+  setPoint('start',[p.coords.latitude,p.coords.longitude],true);
+  $('routeStatus').textContent='Position GPS obtenue.';
+ },()=>{
+  $('routeStatus').textContent='Position indisponible. Autorisez la localisation et activez le GPS.';
+ },{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+});
+
+$('routeBtn').addEventListener('click',async()=>{
+ try{
+  $('routeStatus').textContent='Recherche des adresses…';
+  if(!startCoords){startCoords=await geocode($('pickup').value);setPoint('start',startCoords,false)}
+  if(!endCoords){endCoords=await geocode($('dropoff').value);setPoint('end',endCoords,false)}
+  await calculateRoute();
+ }catch(e){$('routeStatus').textContent=e.message}
+});
+
+['pickup','pickupCommune','pickupExtra'].forEach(id=>$(id).addEventListener('change',()=>{startCoords=null}));
+['dropoff','dropoffCommune','dropoffExtra'].forEach(id=>$(id).addEventListener('change',()=>{endCoords=null}));
+
+document.querySelectorAll('[data-vehicle]').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('[data-vehicle]').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active');$('vehicle').value=b.dataset.vehicle;updatePrice();
+}));
+
+function updatePrice(){
+ const volume=+$('cbm').value,floors=+$('floors').value,helpers=+$('helpers').value;
+ const base=20000,extraVolume=volume<=2?0:(volume-2)*10000;
+ const distanceCost=distanceKm===null?null:Math.round(distanceKm*200);
+ const extraCost=floors*5000+helpers*5000;
+ const total=base+extraVolume+(distanceCost||0)+extraCost;
+ $('basePrice').textContent=money(base);
+ $('volumePrice').textContent=money(extraVolume);
+ $('distancePrice').textContent=distanceCost===null?'À confirmer':money(distanceCost);
+ $('extraPrice').textContent=money(extraCost);
+ $('totalPrice').textContent=money(total);
+ const quote=volume>10||['Camion / poids lourd','Frigorifique','Semi-remorque'].includes($('vehicle').value);
+ $('quoteNotice').style.display=quote?'block':'none';
+ $('estimateNote').textContent=quote?'Devis spécifique requis. Estimation non contractuelle.':'Estimation indicative : base 20 000 FCFA jusqu’à 2 m³, puis 10 000 FCFA par m³ supplémentaire. Distance à 200 FCFA/km si calcul disponible.';
+ return {total,quote};
 }
-async function submitOrder(){
- const status=document.getElementById("status");
- const from=document.getElementById("from").value.trim(),to=document.getElementById("to").value.trim();
- const customer=document.getElementById("customer").value.trim(),phone=document.getElementById("phone").value.trim();
- if(!from||!to||!customer||!phone){alert("Complétez le départ, l’arrivée, le nom et le téléphone.");return;}
- if(!goods.length){alert("Ajoutez au moins un article.");return;}
- if(!fromPoint||!toPoint){alert("Localisez le départ et l’arrivée sur la carte avant l’envoi.");return;}
- const volume=getVolume(),billable=Math.ceil(volume);
- const payload={
-  action:"createOrder",
-  customer,phone,email:document.getElementById("email").value.trim(),
-  from,to,service:document.getElementById("service").value,
-  vehicle:document.getElementById("vehicle").value,
-  goods,volumeCbm:volume,billableCbm:billable,
-  distanceKm:parseFloat(document.getElementById("distance").value)||null,
-  duration:document.getElementById("duration").value,
-  floors:Number(document.getElementById("floors").value)||0,
-  handlers:Number(document.getElementById("handlers").value)||0,
-  desiredDate:document.getElementById("date").value,
-  packingLevel:document.getElementById("packingLevel").value,
-  packingCost:getPa
+
+['cbm','floors','helpers'].forEach(id=>$(id).addEventListener('change',updatePrice));
+
+function showStatus(message,type){
+ $('status').className=type;
+ $('status').textContent=message;
+ $('status').style.display='block';
+}
+
+function getPayload(){
+ const estimate=updatePrice();
+ return {
+  code:requestCode,
+  prestation:$('service').value,
+  nom:$('name').value.trim(),
+  telephone:$('phone').value.trim(),
+  contact:$('email').value.trim(),
+  telephoneDestinataire:$('recipientPhone').value.trim(),
+  detail:$('category').value+' — '+$('details').value.trim(),
+  enlevement:$('pickup').value.trim()+'; '+$('pickupCommune').value.trim()+'; '+$('pickupExtra').value.trim(),
+  livraison:$('dropoff').value.trim()+'; '+$('dropoffCommune').value.trim()+'; '+$('dropoffExtra').value.trim(),
+  cbm:$('cbm').value,
+  prix:estimate.quote?'Sur devis':String(estimate.total),
+  frequence:'Ponctuel',
+  notes:$('notes').value.trim()+' | Distance estimée : '+(distanceKm===null?'non disponible':distanceKm.toFixed(1)+' km')+' | Étages : '+$('floors').value+' | Manutentionnaires : '+$('helpers').value,
+  paiement:'À convenir',
+  dateSouhaitee:$('date').value,
+  vehiculeSouhaite:$('vehicle').value
+ };
+}
+
+$('verifyBtn').addEventListener('click',()=>{
+ if(!$('orderForm').reportValidity())return;
+ requestCode=makeCode();
+ $('orderCode').textContent=requestCode;
+ const data=getPayload();
+ const qrText='GREAT EXPERTIZ | PREVISUALISATION | '+requestCode+' | '+data.enlevement+' -> '+data.livraison;
+ $('qrImage').src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(qrText);
+ $('qrBox').style.display='block';
+ $('receipt').style.display='none';
+ showStatus('Vérification prête. Le QR est provisoire : l’enregistrement n’est confirmé qu’après réponse du serveur.','ok');
+});
+
+$('orderForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!$('orderForm').reportValidity())return;
+ if(!requestCode){showStatus('Cliquez d’abord sur « Vérifier et générer le QR ».','err');return}
+ if(awaitingResponse){showStatus('Envoi en cours. Patientez jusqu’à la réponse du serveur.','err');return}
+
+ const data=getPayload(),f=document.createElement('form');
+ f.method='POST';f.action=SCRIPT_URL;f.target='geOrderFrame';f.style.display='none';
+ Object.entries(data).forEach(([key,value])=>{
+  const input=document.createElement('input');input.name=key;input.value=value;f.appendChild(input);
+ });
+ document.body.appendChild(f);
+ awaitingResponse=true;
+ $('submitBtn').disabled
